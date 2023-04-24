@@ -21,32 +21,15 @@ namespace SOQET.Others
         [HideInInspector] private Objective defaultObjective;
         [SerializeField] private bool isCompleted;
         [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
-        [HideInInspector] private Dictionary<string, Objective> objectivesDictionary = new Dictionary<string, Objective>();
         public UnityEvent OnStoryCompleted = new UnityEvent();
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            UpdateObjectivesDictionary();
             SOQET.Debugging.Debug.EnableDebug = soqetEditorSettings.EnableDebug;
             SoqetEditorSettings.EnableStory = soqetEditorSettings.GetEnableStory();
         }
 #endif
-
-        private void UpdateObjectivesDictionary()
-        {
-#if UNITY_EDITOR
-            objectivesDictionary.Clear();
-
-            foreach (Objective objective in GetObjectives())
-            {
-                if (!objectivesDictionary.ContainsKey(objective.ID))
-                {
-                    objectivesDictionary.Add($"{objective.ID}", objective);
-                }
-            }
-#endif
-        }
 
         public SoqetEditorSettings GetSoqetEditorSettings()
         {
@@ -74,7 +57,6 @@ namespace SOQET.Others
 #if UNITY_EDITOR
             Undo.RecordObject(this, "Deleted Objective");
             objectives.Remove(objectiveToDelete);
-            UpdateObjectivesDictionary();
             RestructureObjectives();
             Undo.DestroyObjectImmediate(objectiveToDelete);
             EditorUtility.SetDirty(this);
@@ -122,7 +104,6 @@ namespace SOQET.Others
         {
 #if UNITY_EDITOR
             objectives.Add(objective);
-            UpdateObjectivesDictionary();
 #endif
         }
 
@@ -241,7 +222,7 @@ namespace SOQET.Others
             {
                 return;
             }
-            
+
             if (isCompleted)
             {
                 SOQET.Debugging.Debug.Log($"{name} story already complete");

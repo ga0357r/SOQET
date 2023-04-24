@@ -53,7 +53,6 @@ namespace SOQET.Others
         [HideInInspector] private Quest currentQuest;
         [HideInInspector] private Quest defaultQuest;
 
-        [HideInInspector] private Dictionary<string, Quest> questsDictionary = new Dictionary<string, Quest>();
         public UnityEvent OnObjectiveCompleted = new UnityEvent();
 
 #if UNITY_EDITOR
@@ -101,7 +100,6 @@ namespace SOQET.Others
             #if UNITY_EDITOR
                 Undo.RecordObject(this, "Deleted Quest");
                 quests.Remove(questToDelete);
-                UpdateQuestsDictionary();
                 RestructureQuests();
                 ResizeObjectiveRect(false);
                 Undo.DestroyObjectImmediate(questToDelete);
@@ -137,7 +135,6 @@ namespace SOQET.Others
         {
             #if UNITY_EDITOR
                 quests.Add(quest);
-                UpdateQuestsDictionary();
                 ResizeObjectiveRect();
                 PositionQuest(quest);
             #endif
@@ -195,32 +192,10 @@ namespace SOQET.Others
             #endif
         }
 
-        private void UpdateQuestsDictionary()
-        {
-            #if UNITY_EDITOR
-                questsDictionary.Clear();
-
-                foreach (Quest quest in GetQuests())
-                {
-                    if (!questsDictionary.ContainsKey(quest.ID))
-                    {
-                        questsDictionary.Add($"{quest.ID}", quest);
-                    }
-                }
-            #endif
-        }
-
         public void SetCurrentQuestToDefault()
         {
             currentQuest = defaultQuest;
         }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            UpdateQuestsDictionary();
-        }
-#endif
 
         public void OnAfterDeserialize()
         {
