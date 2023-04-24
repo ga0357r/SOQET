@@ -17,6 +17,7 @@ namespace SOQET.Others
     public class Story : ScriptableObject, ISerializationCallbackReceiver
     {
         [HideInInspector] private List<Objective> objectives = new List<Objective>();
+        [HideInInspector] private List<Objective> removedObjectives = new List<Objective>();
         [HideInInspector] private Objective currentObjective;
         [HideInInspector] private Objective defaultObjective;
         [SerializeField] private bool isCompleted;
@@ -45,22 +46,50 @@ namespace SOQET.Others
         {
 #if UNITY_EDITOR
             Objective objective = MakeObjective();
-            Undo.RegisterCreatedObjectUndo(objective, "Created new objective");
-            Undo.RecordObject(this, "Created new objective");
+
+            if (objectives.Count.Equals(0))
+            {
+                defaultObjective = objective;
+                currentObjective = defaultObjective;
+            }
+
             AddObjective(objective);
             EditorUtility.SetDirty(this);
+
+           
 #endif
         }
 
         public void DeleteObjective(Objective objectiveToDelete)
         {
 #if UNITY_EDITOR
-            Undo.RecordObject(this, "Deleted Objective");
+            RemoveQuests(objectiveToDelete);
             objectives.Remove(objectiveToDelete);
+            removedObjectives.Add(objectiveToDelete);
             RestructureObjectives();
-            Undo.DestroyObjectImmediate(objectiveToDelete);
             EditorUtility.SetDirty(this);
 #endif
+        }
+
+
+        private void RemoveQuests(Objective objective)
+        {
+            if (objective.GetQuests().Count().Equals(0))
+            {
+                return;
+            }
+
+            List<Quest> questsCopy = objective.GetQuests().ToList();
+            List<Quest> removedQuestsCopy = objective.GetRemovedQuests().ToList();
+
+            foreach (Quest questToRemove in objective.GetQuests())
+            {
+                questsCopy.Remove(questToRemove);
+                removedQuestsCopy.Add(questToRemove);
+            }
+
+            objective.Quests = questsCopy.ToList();
+            objective.RemovedQuests = removedQuestsCopy.ToList();
         }
 
         private void RestructureObjectives()
@@ -75,14 +104,6 @@ namespace SOQET.Others
         public void OnBeforeSerialize()
         {
 #if UNITY_EDITOR
-            if (objectives.Count.Equals(0))
-            {
-                Objective objective = MakeObjective();
-                defaultObjective = objective;
-                currentObjective = defaultObjective;
-                AddObjective(objective);
-            }
-
             if (AssetDatabase.GetAssetPath(this) != "")
             {
                 foreach (Objective objective in GetObjectives())
@@ -92,6 +113,13 @@ namespace SOQET.Others
                         AssetDatabase.AddObjectToAsset(objective, this);
                     }
                 }
+
+                foreach (Objective objectiveToRemove in GetRemovedObjectives())
+                {
+                    AssetDatabase.RemoveObjectFromAsset(objectiveToRemove);
+                }
+
+                removedObjectives.Clear();
             }
 
             soqetEditorSettings.EnableDebug = SOQET.Debugging.Debug.EnableDebug;
@@ -154,6 +182,11 @@ namespace SOQET.Others
         public IEnumerable<Objective> GetObjectives()
         {
             return objectives;
+        }
+
+        public IEnumerable<Objective> GetRemovedObjectives()
+        {
+            return removedObjectives;
         }
 
         public Objective GetObjective(int index)

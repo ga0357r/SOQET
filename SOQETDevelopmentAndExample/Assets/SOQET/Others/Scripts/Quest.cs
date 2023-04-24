@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using System.Diagnostics;
 using UnityEngine.Events;
 using SOQET.Editor;
 #if UNITY_EDITOR
@@ -22,7 +21,6 @@ namespace SOQET.Others
             set
             {
             #if UNITY_EDITOR
-                Undo.RecordObject(this, "Change quest node name");
                 text = value;
                 SetName(value);
                 EditorUtility.SetDirty(this);

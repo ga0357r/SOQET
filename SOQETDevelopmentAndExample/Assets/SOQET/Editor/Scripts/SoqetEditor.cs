@@ -139,7 +139,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Delete Quest"))
             {
-                Undo.RecordObject(selectedStory, "Deleted Quest");
                 deletedQuest = questToDelete;
                 this.selectedObjective = selectedObjective;
             }
@@ -149,7 +148,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Delete Objective"))
             {
-                Undo.RecordObject(selectedStory, "Deleted Objective");
                 deletedObjective = objectiveToDelete;
             }
         }
@@ -272,7 +270,6 @@ namespace SOQET.Editor
             }
             else if (Event.current.type == EventType.MouseDrag && selectedObjective != null)
             {
-                Undo.RecordObject(selectedStory, "Move Objective Nodes");
                 selectedObjective.SetRectPosition(Event.current.mousePosition + dragNodeOffset);
                 GUI.changed = true;
             }

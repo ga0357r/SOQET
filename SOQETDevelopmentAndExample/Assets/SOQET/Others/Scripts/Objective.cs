@@ -1,7 +1,6 @@
 using SOQET.Editor;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,7 +24,6 @@ namespace SOQET.Others
             set
             {
             #if UNITY_EDITOR
-                Undo.RecordObject(this, "Change quest node name");
                 text = value;
                 SetName(value);
                 EditorUtility.SetDirty(this);
@@ -37,6 +35,20 @@ namespace SOQET.Others
         }
 
         [HideInInspector] private List<Quest> quests = new List<Quest>();
+        public List<Quest> Quests
+        {
+            get => quests;
+
+            set => quests = value;
+        }
+
+        [HideInInspector] private List<Quest> removedQuests = new List<Quest>();
+        public List<Quest> RemovedQuests
+        {
+            get => removedQuests;
+
+            set => removedQuests = value;
+        }
 
         [HideInInspector] private string id;
         public string ID { get => id; }
@@ -55,6 +67,7 @@ namespace SOQET.Others
 
         public UnityEvent OnObjectiveCompleted = new UnityEvent();
 
+
 #if UNITY_EDITOR
         public const float defaultSize = 100f;
         public const float widthMultiplier = 4;
@@ -68,7 +81,6 @@ namespace SOQET.Others
         public void SetRectPosition(Vector2 newPosition)
         {
             #if UNITY_EDITOR
-                Undo.RecordObject(this, "Change quest node position");
                 rect.position = newPosition;
                 EditorUtility.SetDirty(this);
             #endif
@@ -88,8 +100,13 @@ namespace SOQET.Others
         {
             #if UNITY_EDITOR
                 Quest quest = MakeQuest();
-                Undo.RegisterCreatedObjectUndo(quest, "Created new quest");
-                Undo.RecordObject(this, "Created new quest");
+
+                if (quests.Count.Equals(0))
+                {
+                    defaultQuest = quest;
+                    currentQuest = defaultQuest;
+                }
+
                 AddQuest(quest);
                 EditorUtility.SetDirty(this);
             #endif
@@ -98,11 +115,10 @@ namespace SOQET.Others
         public void DeleteQuest(Quest questToDelete)
         {
             #if UNITY_EDITOR
-                Undo.RecordObject(this, "Deleted Quest");
                 quests.Remove(questToDelete);
+                removedQuests.Add(questToDelete);
                 RestructureQuests();
                 ResizeObjectiveRect(false);
-                Undo.DestroyObjectImmediate(questToDelete);
                 EditorUtility.SetDirty(this);
             #endif
         }
@@ -110,14 +126,6 @@ namespace SOQET.Others
         public void OnBeforeSerialize()
         {
             #if UNITY_EDITOR
-                if (quests.Count.Equals(0))
-                {
-                    Quest quest = MakeQuest();
-                    defaultQuest = quest;
-                    currentQuest = defaultQuest;
-                    AddQuest(quest);
-                }
-
                 if (AssetDatabase.GetAssetPath(this) != "")
                 {
                     foreach (Quest quest in GetQuests())
@@ -127,6 +135,13 @@ namespace SOQET.Others
                             AssetDatabase.AddObjectToAsset(quest, this);
                         }
                     }
+
+                    foreach (Quest questToRemove in GetRemovedQuests())
+                    {
+                        AssetDatabase.RemoveObjectFromAsset(questToRemove);
+                    }
+
+                    removedQuests.Clear();
                 }
             #endif
         }
@@ -261,6 +276,11 @@ namespace SOQET.Others
         public IEnumerable<Quest> GetQuests()
         {
             return quests;
+        }
+
+        public IEnumerable<Quest> GetRemovedQuests()
+        {
+            return removedQuests;
         }
 
         public Quest GetQuest(int index)
