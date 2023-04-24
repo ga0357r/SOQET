@@ -240,9 +240,13 @@ namespace SOQET.Others
             }
         }
 
-        [Conditional(SoqetEditorSettings.symbol)]
         public void CompleteObjective()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
             if(isCompleted)
             {
                 SOQET.Debugging.Debug.Log($"{name} objective already complete");
@@ -263,9 +267,13 @@ namespace SOQET.Others
             OnObjectiveCompleted?.Invoke();   
         }
 
-        [Conditional(SoqetEditorSettings.symbol)]
         public void MarkAsIncomplete()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
             foreach (Quest quest in GetQuests())
             {
                 quest.MarkAsIncomplete();

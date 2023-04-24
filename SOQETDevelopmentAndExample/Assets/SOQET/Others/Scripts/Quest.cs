@@ -80,9 +80,13 @@ namespace SOQET.Others
             return Guid.NewGuid().ToString();
         }
 
-        [Conditional(SoqetEditorSettings.symbol)]
         public void CompleteQuest()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
             if(isCompleted)
             {
                 SOQET.Debugging.Debug.Log($"{name} quest already complete");
@@ -94,9 +98,13 @@ namespace SOQET.Others
             OnQuestCompleted?.Invoke();
         }
 
-        [Conditional(SoqetEditorSettings.symbol)]
         public void MarkAsIncomplete()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+            
             isCompleted = false;
             SOQET.Debugging.Debug.Log($"{name} quest marked incomplete");
         }

@@ -20,7 +20,7 @@ namespace SOQET.Others
         [HideInInspector] private Objective currentObjective;
         [HideInInspector] private Objective defaultObjective;
         [SerializeField] private bool isCompleted;
-        [SerializeField] private SoqetEditorSettings SoqetEditorSettings = new SoqetEditorSettings();
+        [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
         [HideInInspector] private Dictionary<string, Objective> objectivesDictionary = new Dictionary<string, Objective>();
         public UnityEvent OnStoryCompleted = new UnityEvent();
 
@@ -28,7 +28,8 @@ namespace SOQET.Others
         private void OnValidate()
         {
             UpdateObjectivesDictionary();
-            SOQET.Debugging.Debug.EnableDebug = SoqetEditorSettings.EnableDebug;
+            SOQET.Debugging.Debug.EnableDebug = soqetEditorSettings.EnableDebug;
+            SoqetEditorSettings.EnableStory = soqetEditorSettings.GetEnableStory();
         }
 #endif
 
@@ -49,7 +50,7 @@ namespace SOQET.Others
 
         public SoqetEditorSettings GetSoqetEditorSettings()
         {
-            return SoqetEditorSettings;
+            return soqetEditorSettings;
         }
 
         private void SetCurrentObjectiveToDefault()
@@ -111,7 +112,9 @@ namespace SOQET.Others
                 }
             }
 
-            SoqetEditorSettings.EnableDebug = SOQET.Debugging.Debug.EnableDebug;
+            soqetEditorSettings.EnableDebug = SOQET.Debugging.Debug.EnableDebug;
+            soqetEditorSettings.SetEnableStory(SoqetEditorSettings.EnableStory);
+
 #endif
         }
 
@@ -232,9 +235,13 @@ namespace SOQET.Others
             return true;
         }
 
-        [Conditional(SoqetEditorSettings.symbol)]
         private void CompleteStory()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+            
             if (isCompleted)
             {
                 SOQET.Debugging.Debug.Log($"{name} story already complete");
@@ -268,7 +275,7 @@ namespace SOQET.Others
         public void OnApplicationQuit()
         {
 #if UNITY_EDITOR
-            if (!SoqetEditorSettings.SaveState)
+            if (!soqetEditorSettings.SaveState)
             {
                 SetCurrentObjectiveToDefault();
                 currentObjective.SetCurrentQuestToDefault();
