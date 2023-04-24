@@ -34,7 +34,7 @@ namespace SOQET.Others
             }
         }
 
-        [HideInInspector] private List<Quest> quests = new List<Quest>();
+        [HideInInspector] [SerializeField] private List<Quest> quests = new List<Quest>();
         public List<Quest> Quests
         {
             get => quests;
@@ -42,7 +42,7 @@ namespace SOQET.Others
             set => quests = value;
         }
 
-        [HideInInspector] private List<Quest> removedQuests = new List<Quest>();
+        [HideInInspector] [SerializeField] private List<Quest> removedQuests = new List<Quest>();
         public List<Quest> RemovedQuests
         {
             get => removedQuests;
@@ -50,30 +50,34 @@ namespace SOQET.Others
             set => removedQuests = value;
         }
 
-        [HideInInspector] private string id;
+        [HideInInspector] [SerializeField] private string id;
         public string ID { get => id; }
 
-        [HideInInspector] private string order;
+        [HideInInspector] [SerializeField] private string order;
         public string Order { get => order; set => order = value; }
+
+        [SerializeField] private bool isStarted;
+        public bool IsStarted { get => isStarted; set => isStarted = value; }
 
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
-        [HideInInspector] private string nextObjective;
+        [HideInInspector] [SerializeField] private string nextObjective;
         public string NextObjective { get => nextObjective; set => nextObjective = value; }
 
-        [HideInInspector] private Quest currentQuest;
-        [HideInInspector] private Quest defaultQuest;
+        [HideInInspector] [SerializeField] private Quest currentQuest;
+        [HideInInspector] [SerializeField] private Quest defaultQuest;
 
+        public UnityEvent OnStartObjective = new UnityEvent();
         public UnityEvent OnObjectiveCompleted = new UnityEvent();
 
 
 #if UNITY_EDITOR
         public const float defaultSize = 100f;
         public const float widthMultiplier = 4;
-        [HideInInspector] private float heightMultiplier = 1;
+        [HideInInspector] [SerializeField] private float heightMultiplier = 1;
 
-        [HideInInspector] private Rect rect = new Rect(0f, 0f, defaultSize, defaultSize);
+        [HideInInspector] [SerializeField] private Rect rect = new Rect(0f, 0f, defaultSize, defaultSize);
 
         public Rect Rect => rect;
 #endif
@@ -230,6 +234,26 @@ namespace SOQET.Others
             }
         }
 
+        public void StartObjective()
+        {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
+            if(isStarted)
+            {
+                SOQET.Debugging.Debug.Log($"{name} objective already started");
+                return;
+            }
+
+
+            isStarted = true;
+            SOQET.Debugging.Debug.Log($"{name} objective started");
+            OnStartObjective?.Invoke();   
+        }
+
+
         public void CompleteObjective()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -341,6 +365,19 @@ namespace SOQET.Others
         public Quest GetCurrentQuest()
         {
             return currentQuest;
+        }
+
+        public float CalculateObjectiveProgress()
+        {
+            float progress = 0;
+
+            var getCompletedQuests = from quest
+                                     in GetQuests()
+                                     where quest.IsCompleted == true
+                                     select quest;
+
+            progress = getCompletedQuests.Count()/GetQuests().Count();
+            return progress;
         }
     }
 }

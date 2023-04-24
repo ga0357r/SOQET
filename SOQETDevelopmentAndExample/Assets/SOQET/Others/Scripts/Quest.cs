@@ -31,22 +31,26 @@ namespace SOQET.Others
             }
         }
 
-        [HideInInspector] private string id;
+        [HideInInspector] [SerializeField] private string id;
         public string ID { get => id; }
 
-        [HideInInspector] private string order;
+        [HideInInspector] [SerializeField] private string order;
         public string Order { get => order; set => order = value; }
+
+        [SerializeField] private bool isStarted;
+        public bool IsStarted { get => isStarted; set => isStarted = value; }
 
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
-        [HideInInspector] private string nextQuest;
+        [HideInInspector] [SerializeField] private string nextQuest;
         public string NextQuest { get => nextQuest; set => nextQuest = value; }
 
+        public UnityEvent OnStartQuest = new UnityEvent();
         public UnityEvent OnQuestCompleted = new UnityEvent();
 
         #if UNITY_EDITOR
-        [HideInInspector] private Rect rect = new Rect(0f, 0f, 200f, 100f);
+        [HideInInspector] [SerializeField] private Rect rect = new Rect(0f, 0f, 200f, 100f);
 
         public Rect Rect { get => rect; }
         #endif
@@ -76,6 +80,24 @@ namespace SOQET.Others
         private string GenerateID()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public void StartQuest()
+        {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
+            if(isStarted)
+            {
+                SOQET.Debugging.Debug.Log($"{name} quest already started");
+                return;
+            }
+
+            isStarted = true;
+            SOQET.Debugging.Debug.Log($"{name} quest started");
+            OnStartQuest?.Invoke();
         }
 
         public void CompleteQuest()

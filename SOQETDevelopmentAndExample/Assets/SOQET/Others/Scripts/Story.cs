@@ -16,12 +16,14 @@ namespace SOQET.Others
     [CreateAssetMenu(fileName = "New Story", menuName = "SOQET/Story")]
     public class Story : ScriptableObject, ISerializationCallbackReceiver
     {
-        [HideInInspector] private List<Objective> objectives = new List<Objective>();
-        [HideInInspector] private List<Objective> removedObjectives = new List<Objective>();
-        [HideInInspector] private Objective currentObjective;
-        [HideInInspector] private Objective defaultObjective;
+        [HideInInspector] [SerializeField] private List<Objective> objectives = new List<Objective>();
+        [HideInInspector] [SerializeField] private List<Objective> removedObjectives = new List<Objective>();
+        [HideInInspector] [SerializeField] private Objective currentObjective;
+        [HideInInspector] [SerializeField] private Objective defaultObjective;
+        [SerializeField] private bool isStarted;
         [SerializeField] private bool isCompleted;
         [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
+        public UnityEvent OnStartStory = new UnityEvent();
         public UnityEvent OnStoryCompleted = new UnityEvent();
 
 #if UNITY_EDITOR
@@ -249,6 +251,25 @@ namespace SOQET.Others
             return true;
         }
 
+        private void StartStory()
+        {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
+            if (isStarted)
+            {
+                SOQET.Debugging.Debug.Log($"{name} story already started");
+                return;
+            }
+
+            isStarted = true;
+            SOQET.Debugging.Debug.Log($"{name} story completed");
+            OnStartStory?.Invoke();
+        }
+
+
         private void CompleteStory()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -300,6 +321,21 @@ namespace SOQET.Others
 
         public void SetupInternalStoryEvents()
         {
+            //handle event startup
+            HandleAllEventStartups();
+            //handle event completion
+            HandleAllEventCompletions();
+
+            SOQET.Debugging.Debug.Log("Setup Internal Story Events");
+        }
+
+        private void HandleAllEventStartups()
+        {
+            
+        }
+
+        private void HandleAllEventCompletions()
+        {
             var objectives = GetObjectives();
             foreach (var objective in GetObjectives())
             {
@@ -307,26 +343,26 @@ namespace SOQET.Others
                 {
                     quest.OnQuestCompleted.AddListener
                     (
-                        () => 
+                        () =>
                         {
                             bool nextQuestExists = objective.StartNextQuest();
 
-                            if(nextQuestExists)
+                            if (nextQuestExists)
                             {
                                 return;
                             }
 
-                            else if(!nextQuestExists)
+                            else if (!nextQuestExists)
                             {
                                 objective.CompleteObjective();
                                 bool nextObjectiveExists = StartNextObjective();
 
-                                if(nextObjectiveExists)
+                                if (nextObjectiveExists)
                                 {
                                     return;
                                 }
 
-                                else if(!nextObjectiveExists)
+                                else if (!nextObjectiveExists)
                                 {
                                     CompleteStory();
                                 }
@@ -335,8 +371,6 @@ namespace SOQET.Others
                     );
                 }
             }
-
-            SOQET.Debugging.Debug.Log("Setup Internal Story Events");
         }
     }
 }

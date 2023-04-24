@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8217261052306660972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Kill 3 enemies
+  m_EditorClassIdentifier: 
+  text: Kill 3 enemies
+  id: dfaec0c1-310c-43ee-a80c-9e4ebe943603
+  order: 2
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 3
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 230
+    width: 200
+    height: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,15 +42,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6c23998d91524409a33aeee4621ad4, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
+  objectives:
+  - {fileID: 2134390856815189899}
+  removedObjectives: []
+  currentObjective: {fileID: 2134390856815189899}
+  defaultObjective: {fileID: 2134390856815189899}
+  isStarted: 0
   isCompleted: 0
   soqetEditorSettings:
     saveState: 0
     enableDebug: 1
     enableStory: 1
+  OnStartStory:
+    m_PersistentCalls:
+      m_Calls: []
   OnStoryCompleted:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1809999806389102234
+--- !u!114 &1777808226374794867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30,14 +69,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Move and collect 3 gold items
+  m_Name: Collect 3 Gold Coins
   m_EditorClassIdentifier: 
-  text: Move and collect 3 gold items
+  text: Collect 3 Gold Coins
+  id: fef7b978-430e-49b1-af34-02c796248d5c
+  order: 1
+  isStarted: 0
   isCompleted: 0
+  nextQuest: 2
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
   OnQuestCompleted:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5755731011405453089
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 130
+    width: 200
+    height: 100
+--- !u!114 &2134390856815189899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,10 +99,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Complete The Tutorial
+  m_Name: Complete Tutorial
   m_EditorClassIdentifier: 
-  text: Complete The Tutorial
+  text: Complete Tutorial
+  quests:
+  - {fileID: 1777808226374794867}
+  - {fileID: -8217261052306660972}
+  removedQuests: []
+  id: 0006f16a-1e68-47f6-b7c3-5b3a87854b50
+  order: 1
+  isStarted: 0
   isCompleted: 0
+  nextObjective: 2
+  currentQuest: {fileID: 1777808226374794867}
+  defaultQuest: {fileID: 1777808226374794867}
+  OnStartObjective:
+    m_PersistentCalls:
+      m_Calls: []
   OnObjectiveCompleted:
     m_PersistentCalls:
       m_Calls: []
+  heightMultiplier: 4
+  rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 400

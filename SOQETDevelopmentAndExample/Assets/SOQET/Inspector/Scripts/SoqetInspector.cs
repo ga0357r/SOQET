@@ -81,7 +81,49 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
-    public void SubscribeToQuestEvent(string objectiveName, string questName, UnityAction call)
+    public void CompletePlayerQuest(int questNumber)
+    {
+        //use current objective
+        Objective currentObjective = currentStory.GetCurrentObjective();
+        
+        if (currentObjective && !currentObjective.IsCompleted)
+        {
+            Quest quest = currentObjective.GetQuest(questNumber);
+
+            if (quest && !quest.IsCompleted)
+            {
+                quest.CompleteQuest();
+            }
+
+            else
+            {
+                if (!quest)
+                {
+                    SOQET.Debugging.Debug.LogError($"{quest} quest not found");
+                }
+
+                else if (quest.IsCompleted)
+                {
+                    SOQET.Debugging.Debug.LogError($"{quest} quest already complete");
+                }
+            }
+        }
+
+        else
+        {
+            if (!currentObjective)
+            {
+                SOQET.Debugging.Debug.LogError($"{currentObjective} objective not found");
+            }
+
+            else if (currentObjective.IsCompleted)
+            {
+                SOQET.Debugging.Debug.LogError($"{currentObjective} objective already complete");
+            }
+        }
+    }
+
+    public void SubscribeToQuestOnCompleteEvent(string objectiveName, string questName, UnityAction call)
     {
         Objective objective = CurrentStory.GetObjective(objectiveName);
 
@@ -107,7 +149,7 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
-    public void SubscribeToObjectiveEvent(string objectiveName, UnityAction call)
+    public void SubscribeToObjectiveOnCompleteEvent(string objectiveName, UnityAction call)
     {
         Objective objective = CurrentStory.GetObjective(objectiveName);
 
@@ -120,6 +162,27 @@ public class SoqetInspector : MonoBehaviour
         else
         {
             SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+    public void SubscribeToAllQuestsOnCompleteEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            foreach (Quest quest in objective.GetQuests())
+            {
+                quest.OnQuestCompleted.AddListener(call);
+                SOQET.Debugging.Debug.Log($"Subscribed to {quest} quest OnQuestCompleted event");
+            }
+        }
+    }
+
+    public void SubscribeToAllObjectivesOnCompleteEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            objective.OnObjectiveCompleted.AddListener(call);
+            SOQET.Debugging.Debug.Log($"Subscribed to {objective} objective OnObjectiveCompleted event");
         }
     }
 }

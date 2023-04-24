@@ -12,25 +12,63 @@ namespace SOQET.Inspector
         [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText;
         [SerializeField] private Slider currentObjectiveProgressSlider;
 
-        private Objective currentObjective;
-        private Quest currentQuest;
+        [SerializeField] private Objective currentObjective;
+        [SerializeField] private Quest currentQuest;
+        [SerializeField] private int keyPressCounter = 0;
 
-        private void Awake() 
+        private void Awake()
         {
-            //get the current quest and objective
-            currentObjective = soqetInspector.CurrentStory.GetCurrentObjective();
-            SOQET.Debugging.Debug.Log($"CurrentObjective:{currentObjective.name}");
-            
-            currentQuest = currentObjective.GetCurrentQuest();
-            SOQET.Debugging.Debug.Log($"CurrentQuest:{currentQuest.name}");
+            GetCurrentObjectiveAndQuest();
+            UpdateGUI();
 
-            //currentObjectiveText.text = soqetInspector.CurrentStory.GetCurrentObjective().Text;
-            //currentQuestText.text = soqetInspector.CurrentStory.GetCurrentObjective().GetCurrentQuest().Text;
+            //subcribe to all quests here
+            soqetInspector.SubscribeToAllQuestsOnCompleteEvents(
+                () =>
+                {
+                    GetCurrentObjectiveAndQuest();
+                    UpdateGUI();
+                });
+        }
+
+        private void GetCurrentObjectiveAndQuest()
+        {
+            currentObjective = soqetInspector.CurrentStory.GetCurrentObjective();
+            currentQuest = currentObjective.GetCurrentQuest();
         }
 
         private void Start() 
         {
             
+
+        }
+
+        private void UpdateGUI()
+        {
+            //Update GUI here
+            SOQET.Debugging.Debug.Log("Update GUI here");
+            ShowCurrentObjectiveAndQuest();
+            ShowObjectiveProgress();
+        }
+
+        private void ShowCurrentObjectiveAndQuest()
+        {
+            currentObjectiveText.text = $"Current Objective: {currentObjective.Text}";
+            currentQuestText.text = $"Current Quest: {currentQuest.Text}";
+        }
+
+        private void ShowObjectiveProgress()
+        {
+            float currentObjectiveProgress = currentObjective.CalculateObjectiveProgress();
+            currentObjectiveProgressSlider.value = currentObjectiveProgress;
+        }
+
+        private void Update() 
+        {
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                //increment keypress
+                soqetInspector.CompletePlayerQuest(++keyPressCounter);
+            }    
         }
     }
 }
