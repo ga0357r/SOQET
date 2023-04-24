@@ -30,7 +30,6 @@ namespace SOQET.Editor
         [OnOpenAsset(1)]
         public static bool OnOpenStoryAssetCallback(int instanceID, int line)
         {
-            UnityEngine.Debug.Log("OnOpenStoryAssetCallback");
             Story story = null;
 
             try
@@ -63,7 +62,6 @@ namespace SOQET.Editor
 
         private void OnSelectionChanged()
         {
-            UnityEngine.Debug.Log("OnSelectionChanged");
             Story story = null;
             
             try
@@ -141,7 +139,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Delete Quest"))
             {
-                UnityEngine.Debug.Log("Delete Quest");
                 Undo.RecordObject(selectedStory, "Deleted Quest");
                 deletedQuest = questToDelete;
                 this.selectedObjective = selectedObjective;
@@ -152,7 +149,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Delete Objective"))
             {
-                UnityEngine.Debug.Log("Delete Objective");
                 Undo.RecordObject(selectedStory, "Deleted Objective");
                 deletedObjective = objectiveToDelete;
             }
@@ -162,7 +158,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Add Objective"))
             {
-                Debug.Log("Create new Objective");
                 selectedStory.CreateObjective();
             }
         }
@@ -171,7 +166,6 @@ namespace SOQET.Editor
         {
             if (GUILayout.Button("Add Quest"))
             {
-                UnityEngine.Debug.Log("Create new quest");
                 objective.CreateQuest();
             }
         }

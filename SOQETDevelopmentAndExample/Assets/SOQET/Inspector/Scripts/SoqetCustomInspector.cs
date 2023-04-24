@@ -18,7 +18,7 @@ namespace SOQET.Inspector
             storyManager = (SoqetInspector)target;
             storySerializedProperty = serializedObject.FindProperty("currentStory");
             story = storyManager.CurrentStory;
-            Debugging.Debug.Log("On Enable");
+            SOQET.Debugging.Debug.Log("On Enable");
         }
 
         public override void OnInspectorGUI()
@@ -62,7 +62,7 @@ namespace SOQET.Inspector
                 return;
             }
 
-            Debugging.Debug.Log("story is null");
+            SOQET.Debugging.Debug.Log("story is null");
         }
     }
 }

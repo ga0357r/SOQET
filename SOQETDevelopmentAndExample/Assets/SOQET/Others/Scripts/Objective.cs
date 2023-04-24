@@ -1,6 +1,5 @@
 using SOQET.Editor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +8,6 @@ using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using Debug = UnityEngine.Debug;
 
 namespace SOQET.Others
 {
@@ -38,32 +36,32 @@ namespace SOQET.Others
             }
         }
 
-        [SerializeField] private List<Quest> quests = new List<Quest>();
+        [HideInInspector] private List<Quest> quests = new List<Quest>();
 
-        [SerializeField] private string id;
+        [HideInInspector] private string id;
         public string ID { get => id; }
 
-        [SerializeField] private string order;
+        [HideInInspector] private string order;
         public string Order { get => order; set => order = value; }
 
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
-        [SerializeField] private string nextObjective;
+        [HideInInspector] private string nextObjective;
         public string NextObjective { get => nextObjective; set => nextObjective = value; }
 
-        [SerializeField] private Quest currentQuest;
-        [SerializeField] private Quest defaultQuest;
+        [HideInInspector] private Quest currentQuest;
+        [HideInInspector] private Quest defaultQuest;
 
-        [SerializeField] private Dictionary<string, Quest> questsDictionary = new Dictionary<string, Quest>();
+        [HideInInspector] private Dictionary<string, Quest> questsDictionary = new Dictionary<string, Quest>();
         public UnityEvent OnObjectiveCompleted = new UnityEvent();
 
 #if UNITY_EDITOR
         public const float defaultSize = 100f;
         public const float widthMultiplier = 4;
-        [SerializeField] private float heightMultiplier = 1;
+        [HideInInspector] private float heightMultiplier = 1;
 
-        [SerializeField] private Rect rect = new Rect(0f, 0f, defaultSize, defaultSize);
+        [HideInInspector] private Rect rect = new Rect(0f, 0f, defaultSize, defaultSize);
 
         public Rect Rect => rect;
 #endif
@@ -247,7 +245,7 @@ namespace SOQET.Others
         {
             if(isCompleted)
             {
-                Debug.Log($"{name} objective already complete");
+                SOQET.Debugging.Debug.Log($"{name} objective already complete");
                 return;
             }
 
@@ -261,7 +259,7 @@ namespace SOQET.Others
 
 
             isCompleted = true;
-            Debug.Log($"{name} objective completed");
+            SOQET.Debugging.Debug.Log($"{name} objective completed");
             OnObjectiveCompleted?.Invoke();   
         }
 
@@ -274,7 +272,7 @@ namespace SOQET.Others
             }
 
             isCompleted = false;
-            Debug.Log("Marked as Incomplete");
+            SOQET.Debugging.Debug.Log($"{name} objective marked incomplete");
         }
 
         public IEnumerable<Quest> GetQuests()
@@ -316,47 +314,25 @@ namespace SOQET.Others
         {
             if (int.TryParse(currentQuest.NextQuest, out var nextQuestIndex))
             {
-                Debug.Log("Parsing Successful");
+;
             }
 
             else
             {
-                Debug.Log("Parsing Failed");
+                SOQET.Debugging.Debug.LogError("Parsing Failed");
+                return false;
             }
 
             if (nextQuestIndex > quests.Count)
             {
-                Debug.Log("starting next quest unsuccesful");
+                SOQET.Debugging.Debug.Log("starting next quest unsuccesful");
                 return false;
             }
 
             nextQuestIndex -= 1;
             currentQuest = quests[nextQuestIndex];
-            Debug.Log($"starting {currentQuest.name} quest succesful");
+            SOQET.Debugging.Debug.Log($"starting {currentQuest.name} quest succesful");
             return true;
-        }
-
-        public void BeginNextQuest()
-        {
-            if (int.TryParse(currentQuest.NextQuest, out var nextQuestIndex))
-            {
-                Debug.Log("Parsing Successful");
-            }
-
-            else
-            {
-                Debug.Log("Parsing Failed");
-            }
-
-            if (nextQuestIndex > quests.Count)
-            {
-                Debug.Log("starting next quest unsuccesful");
-                return;
-            }
-
-            nextQuestIndex -= 1;
-            currentQuest = quests[nextQuestIndex];
-            Debug.Log("starting next quest succesful");
         }
 
         public Quest GetCurrentQuest()

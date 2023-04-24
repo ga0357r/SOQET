@@ -16,18 +16,19 @@ namespace SOQET.Others
     [CreateAssetMenu(fileName = "New Story", menuName = "SOQET/Story")]
     public class Story : ScriptableObject, ISerializationCallbackReceiver
     {
-        [SerializeField] private List<Objective> objectives = new List<Objective>();
-        [SerializeField] private Objective currentObjective;
-        [SerializeField] private Objective defaultObjective;
+        [HideInInspector] private List<Objective> objectives = new List<Objective>();
+        [HideInInspector] private Objective currentObjective;
+        [HideInInspector] private Objective defaultObjective;
         [SerializeField] private bool isCompleted;
         [SerializeField] private SoqetEditorSettings SoqetEditorSettings = new SoqetEditorSettings();
-        [SerializeField] private Dictionary<string, Objective> objectivesDictionary = new Dictionary<string, Objective>();
+        [HideInInspector] private Dictionary<string, Objective> objectivesDictionary = new Dictionary<string, Objective>();
         public UnityEvent OnStoryCompleted = new UnityEvent();
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
             UpdateObjectivesDictionary();
+            SOQET.Debugging.Debug.EnableDebug = SoqetEditorSettings.EnableDebug;
         }
 #endif
 
@@ -46,7 +47,7 @@ namespace SOQET.Others
 #endif
         }
 
-        public SoqetEditorSettings GetStoryEditorSettings()
+        public SoqetEditorSettings GetSoqetEditorSettings()
         {
             return SoqetEditorSettings;
         }
@@ -109,6 +110,8 @@ namespace SOQET.Others
                     }
                 }
             }
+
+            SoqetEditorSettings.EnableDebug = SOQET.Debugging.Debug.EnableDebug;
 #endif
         }
 
@@ -161,7 +164,7 @@ namespace SOQET.Others
 
         public void OnAfterDeserialize()
         {
-
+ 
         }
 
         public IEnumerable<Objective> GetObjectives()
@@ -209,48 +212,24 @@ namespace SOQET.Others
         {
             if (int.TryParse(currentObjective.NextObjective, out var nextObjectiveIndex))
             {
-                Debug.Log("Parsing Successful");
+
             }
 
             else
             {
-                Debug.Log("Parsing Failed");
+                SOQET.Debugging.Debug.LogError("Parsing Failed");
             }
 
             if (nextObjectiveIndex > objectives.Count)
             {
-                Debug.Log("starting next objective unsuccesful");
+                SOQET.Debugging.Debug.Log("starting next objective unsuccesful");
                 return false;
             }
 
             nextObjectiveIndex -= 1;
             currentObjective = objectives[nextObjectiveIndex];
-            Debug.Log($"starting {currentObjective.name} objective succesful");
+            SOQET.Debugging.Debug.Log($"starting {currentObjective.name} objective succesful");
             return true;
-        }
-
-        public void BeginNextObjective()
-        {
-            if (int.TryParse(currentObjective.NextObjective, out var nextObjectiveIndex))
-            {
-                Debug.Log("Parsing Successful");
-            }
-
-            else
-            {
-                Debug.Log("Parsing Failed");
-            }
-
-            if (nextObjectiveIndex > objectives.Count)
-            {
-                Debug.Log("starting next objective unsuccesful");
-                return;
-            }
-
-            nextObjectiveIndex -= 1;
-            currentObjective = objectives[nextObjectiveIndex];
-            Debug.Log("starting next objective succesful");
-            return;
         }
 
         [Conditional(SoqetEditorSettings.symbol)]
@@ -258,7 +237,7 @@ namespace SOQET.Others
         {
             if (isCompleted)
             {
-                Debug.Log($"{name} story already complete");
+                SOQET.Debugging.Debug.Log($"{name} story already complete");
                 return;
             }
 
@@ -271,10 +250,20 @@ namespace SOQET.Others
             }
 
             isCompleted = true;
-            Debug.Log($"{name} story completed");
+            SOQET.Debugging.Debug.Log($"{name} story completed");
             OnStoryCompleted?.Invoke();
         }
 
+        private void MarkAsIncomplete()
+        {
+            foreach (Objective objective in GetObjectives())
+            {
+                objective.MarkAsIncomplete();
+            }
+
+            isCompleted = false;
+            SOQET.Debugging.Debug.Log($"{name} story marked incomplete");
+        }
 
         public void OnApplicationQuit()
         {
@@ -283,16 +272,11 @@ namespace SOQET.Others
             {
                 SetCurrentObjectiveToDefault();
                 currentObjective.SetCurrentQuestToDefault();
-
-                foreach (var objective in GetObjectives())
-                {
-                    objective.MarkAsIncomplete();
-                }
+                MarkAsIncomplete();
             }
 #endif
         }
 
-        [ContextMenu("Setup Internal Story Events")]
         public void SetupInternalStoryEvents()
         {
             var objectives = GetObjectives();
@@ -331,7 +315,7 @@ namespace SOQET.Others
                 }
             }
 
-            Debugging.Debug.Log("Setup Internal Story Events");
+            SOQET.Debugging.Debug.Log("Setup Internal Story Events");
         }
     }
 }

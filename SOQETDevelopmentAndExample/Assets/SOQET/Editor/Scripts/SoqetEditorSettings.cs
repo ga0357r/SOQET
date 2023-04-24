@@ -17,6 +17,11 @@ namespace SOQET.Editor
         [SerializeField] private bool enableDebug = SOQET.Debugging.Debug.EnableDebug;
 
         public bool SaveState => saveState;
-        public bool EnableDebug => enableDebug;
+        public bool EnableDebug
+        {
+            get => enableDebug;
+
+            set => enableDebug = value;
+        }
     }
 }

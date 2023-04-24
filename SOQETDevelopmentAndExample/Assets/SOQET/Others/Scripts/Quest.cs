@@ -6,7 +6,6 @@ using SOQET.Editor;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using Debug = UnityEngine.Debug;
 
 namespace SOQET.Others
 {
@@ -34,22 +33,22 @@ namespace SOQET.Others
             }
         }
 
-        [SerializeField] private string id;
+        [HideInInspector] private string id;
         public string ID { get => id; }
 
-        [SerializeField] private string order;
+        [HideInInspector] private string order;
         public string Order { get => order; set => order = value; }
 
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
-        [SerializeField] private string nextQuest;
+        [HideInInspector] private string nextQuest;
         public string NextQuest { get => nextQuest; set => nextQuest = value; }
 
         public UnityEvent OnQuestCompleted = new UnityEvent();
 
         #if UNITY_EDITOR
-        [SerializeField] private Rect rect = new Rect(0f, 0f, 200f, 100f);
+        [HideInInspector] private Rect rect = new Rect(0f, 0f, 200f, 100f);
 
         public Rect Rect { get => rect; }
         #endif
@@ -86,12 +85,12 @@ namespace SOQET.Others
         {
             if(isCompleted)
             {
-                Debug.Log($"{name} quest already complete");
+                SOQET.Debugging.Debug.Log($"{name} quest already complete");
                 return;
             }
 
             isCompleted = true;
-            Debug.Log($"{name} quest completed");
+            SOQET.Debugging.Debug.Log($"{name} quest completed");
             OnQuestCompleted?.Invoke();
         }
 
@@ -99,6 +98,7 @@ namespace SOQET.Others
         public void MarkAsIncomplete()
         {
             isCompleted = false;
+            SOQET.Debugging.Debug.Log($"{name} quest marked incomplete");
         }
     }
 }
