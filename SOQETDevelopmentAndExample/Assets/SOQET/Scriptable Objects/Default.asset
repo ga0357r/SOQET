@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6c23998d91524409a33aeee4621ad4, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  isCompleted: 0
+  soqetEditorSettings:
+    saveState: 0
+    enableDebug: 1
+    enableStory: 1
+  OnStoryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1809999806389102234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Move and collect 3 gold items
+  m_EditorClassIdentifier: 
+  text: Move and collect 3 gold items
+  isCompleted: 0
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5755731011405453089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
+  m_Name: Complete The Tutorial
+  m_EditorClassIdentifier: 
+  text: Complete The Tutorial
+  isCompleted: 0
+  OnObjectiveCompleted:
+    m_PersistentCalls:
+      m_Calls: []
