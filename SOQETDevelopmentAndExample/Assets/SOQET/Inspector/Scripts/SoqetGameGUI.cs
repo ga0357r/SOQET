@@ -10,7 +10,7 @@ namespace SOQET.Inspector
     public class SoqetGameGUI : MonoBehaviour
     {
         private SoqetInspector soqetInspector;
-        [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText;
+        [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText,gameCompletionText;
         [SerializeField] private Slider currentObjectiveProgressSlider;
 
         private Objective currentObjective;
@@ -29,6 +29,7 @@ namespace SOQET.Inspector
 
             soqetInspector.SubscribeToAllStoryEvents(UpdateGUICallback);
             soqetInspector.SubscribeToAllObjectivesOnCompleteEvents(ResetKeyPressCounter);
+            soqetInspector.SubscribeToOnStoryCompletedEvent(EnableGameCompletionGUI);
         }
 
         private void Awake() 
@@ -44,6 +45,7 @@ namespace SOQET.Inspector
             //unsubscribe from any story event here
             soqetInspector.UnsubscribeFromAllStoryEvents(UpdateGUICallback);
             soqetInspector.UnsubscribeFromAllObjectivesOnCompleteEvents(ResetKeyPressCounter);
+            soqetInspector.UnsubscribeFromOnStoryCompletedEvent(EnableGameCompletionGUI);
         }
 
         private void GetCurrentObjectiveAndQuest()
@@ -85,6 +87,11 @@ namespace SOQET.Inspector
         private void ResetKeyPressCounter()
         {
             keyPressCounter = 0;
+        }
+
+        private void EnableGameCompletionGUI()
+        {
+            gameCompletionText.gameObject.SetActive(true);
         }
     }
 }
