@@ -125,6 +125,7 @@ namespace SOQET.Others
                 return;
             }
             
+            isStarted = false;
             isCompleted = false;
             SOQET.Debugging.Debug.Log($"{name} quest marked incomplete");
         }

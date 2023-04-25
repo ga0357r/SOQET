@@ -301,11 +301,17 @@ namespace SOQET.Others
 
         private void MarkAsIncomplete()
         {
+            if(!SoqetEditorSettings.EnableStory)
+            {
+                return;
+            }
+
             foreach (Objective objective in GetObjectives())
             {
                 objective.MarkAsIncomplete();
             }
 
+            isStarted = false;
             isCompleted = false;
             SOQET.Debugging.Debug.Log($"{name} story marked incomplete");
         }

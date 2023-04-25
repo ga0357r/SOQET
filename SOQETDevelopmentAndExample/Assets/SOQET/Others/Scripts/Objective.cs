@@ -293,6 +293,7 @@ namespace SOQET.Others
                 quest.MarkAsIncomplete();
             }
 
+            isStarted = false;
             isCompleted = false;
             SOQET.Debugging.Debug.Log($"{name} objective marked incomplete");
         }
@@ -377,7 +378,7 @@ namespace SOQET.Others
                                      where quest.IsCompleted == true
                                      select quest;
 
-            progress = getCompletedQuests.Count()/GetQuests().Count();
+            progress = (float) getCompletedQuests.Count()/(float) GetQuests().Count();
             return progress;
         }
     }

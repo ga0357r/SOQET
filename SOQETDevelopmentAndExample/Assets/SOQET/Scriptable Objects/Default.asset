@@ -15,7 +15,7 @@ MonoBehaviour:
   text: Kill 3 enemies
   id: dfaec0c1-310c-43ee-a80c-9e4ebe943603
   order: 2
-  isStarted: 0
+  isStarted: 1
   isCompleted: 0
   nextQuest: 3
   OnStartQuest:
@@ -47,7 +47,7 @@ MonoBehaviour:
   removedObjectives: []
   currentObjective: {fileID: 2134390856815189899}
   defaultObjective: {fileID: 2134390856815189899}
-  isStarted: 0
+  isStarted: 1
   isCompleted: 0
   soqetEditorSettings:
     saveState: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   text: Collect 3 Gold Coins
   id: fef7b978-430e-49b1-af34-02c796248d5c
   order: 1
-  isStarted: 0
+  isStarted: 1
   isCompleted: 0
   nextQuest: 2
   OnStartQuest:
@@ -108,7 +108,7 @@ MonoBehaviour:
   removedQuests: []
   id: 0006f16a-1e68-47f6-b7c3-5b3a87854b50
   order: 1
-  isStarted: 0
+  isStarted: 1
   isCompleted: 0
   nextObjective: 2
   currentQuest: {fileID: 1777808226374794867}

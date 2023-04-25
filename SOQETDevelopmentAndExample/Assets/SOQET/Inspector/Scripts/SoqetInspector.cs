@@ -177,6 +177,18 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void SubscribeToAllQuestsOnStartEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            foreach (Quest quest in objective.GetQuests())
+            {
+                quest.OnStartQuest.AddListener(call);
+                SOQET.Debugging.Debug.Log($"Subscribed to {quest} quest OnStartQuest event");
+            }
+        }
+    }
+
     public void SubscribeToAllObjectivesOnCompleteEvents(UnityAction call)
     {
         foreach (Objective objective in currentStory.GetObjectives())
@@ -184,5 +196,37 @@ public class SoqetInspector : MonoBehaviour
             objective.OnObjectiveCompleted.AddListener(call);
             SOQET.Debugging.Debug.Log($"Subscribed to {objective} objective OnObjectiveCompleted event");
         }
+    }
+
+    public void SubscribeToAllObjectivesOnStartEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            objective.OnStartObjective.AddListener(call);
+            SOQET.Debugging.Debug.Log($"Subscribed to {objective} objective OnStartObjective event");
+        }
+    }
+
+    public void SubscribeToOnStartStoryEvent(UnityAction call)
+    {
+        currentStory.OnStartStory.AddListener(call);
+    }
+
+    public void SubscribeToOnStoryCompletedEvent(UnityAction call)
+    {
+        currentStory.OnStoryCompleted.AddListener(call);
+    }
+
+    public void SubscribeToAllStoryEvents(UnityAction call)
+    {
+        //OnStart
+        SubscribeToOnStartStoryEvent(call);
+        SubscribeToAllObjectivesOnStartEvents(call);
+        SubscribeToAllObjectivesOnStartEvents(call);
+
+        //OnComplete
+        SubscribeToOnStoryCompletedEvent(call);
+        SubscribeToAllObjectivesOnCompleteEvents(call);
+        SubscribeToAllQuestsOnCompleteEvents(call);
     }
 }

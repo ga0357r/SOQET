@@ -16,18 +16,20 @@ namespace SOQET.Inspector
         [SerializeField] private Quest currentQuest;
         [SerializeField] private int keyPressCounter = 0;
 
-        private void Awake()
+        private void OnEnable()
         {
-            GetCurrentObjectiveAndQuest();
-            UpdateGUI();
-
-            //subcribe to all quests here
-            soqetInspector.SubscribeToAllQuestsOnCompleteEvents(
+            //subcribe to any story event here
+            soqetInspector.SubscribeToAllStoryEvents(
                 () =>
                 {
                     GetCurrentObjectiveAndQuest();
                     UpdateGUI();
                 });
+        }
+
+        private void OnDisable() 
+        {
+            //unsubscribe from any story event here
         }
 
         private void GetCurrentObjectiveAndQuest()
