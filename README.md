@@ -6,7 +6,6 @@ SOQET provides a simple to use interface for creating and managing objectives an
 The tool is designed to be easy to use, however, right now, you will need some programming experience to add feedbacks. I plan to mitigate this issue in the future through visual scripting. 
 
 # Getting Started
-Note: SOQET Documentation is a work in progress(WIP)
 To get started with SOQET, simply download the repository from Github and open the SOQET unity project and play/study the sample scene. SOQET documentation will be made available in the near future, after which, you can explore the documentation and then start using SOQET to create and manage objectives and quests in your games.
 
 # Contributing
