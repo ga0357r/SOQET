@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4009951318349203737
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1074,6 +1074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentObjectiveText: {fileID: 1519128264260709958}
   currentQuestText: {fileID: 1519128264243659545}
+  gameCompletionText: {fileID: 1669050500949713899}
   currentObjectiveProgressSlider: {fileID: 1519128265537209079}
   keyPressCounter: 1
 --- !u!1 &8933755301467101902
