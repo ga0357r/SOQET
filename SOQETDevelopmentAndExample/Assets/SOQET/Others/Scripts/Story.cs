@@ -2,14 +2,12 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 using UnityEngine.Events;
 using SOQET.Editor;
 using SOQET.Debugging;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using Debug = UnityEngine.Debug;
 
 namespace SOQET.Others
 {
@@ -18,8 +16,8 @@ namespace SOQET.Others
     {
         [HideInInspector] [SerializeField] private List<Objective> objectives = new List<Objective>();
         [HideInInspector] [SerializeField] private List<Objective> removedObjectives = new List<Objective>();
-        [HideInInspector] [SerializeField] private Objective currentObjective;
-        [HideInInspector] [SerializeField] private Objective defaultObjective;
+        [HideInInspector] [SerializeField] private int currentObjective;
+        [HideInInspector] [SerializeField] private int defaultObjective;
         [SerializeField] private bool isStarted;
         [SerializeField] private bool isCompleted;
         [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
@@ -49,18 +47,28 @@ namespace SOQET.Others
         {
 #if UNITY_EDITOR
             Objective objective = MakeObjective();
-
-            if (objectives.Count.Equals(0))
-            {
-                defaultObjective = objective;
-                currentObjective = defaultObjective;
-            }
-
+            SetupCurrentAndDefaultObjectives(objective);
             AddObjective(objective);
             EditorUtility.SetDirty(this);
 
-           
+
 #endif
+        }
+
+        private void SetupCurrentAndDefaultObjectives(Objective objective)
+        {
+            if (objectives.Count.Equals(0))
+            {
+
+                defaultObjective = 1;
+                currentObjective = defaultObjective;
+            }
+
+            else
+            {
+                defaultObjective = 1;
+                currentObjective = defaultObjective;
+            }
         }
 
         public void DeleteObjective(Objective objectiveToDelete)
@@ -223,14 +231,14 @@ namespace SOQET.Others
             }
         }
 
-        public Objective GetCurrentObjective()
+        public Objective GetCurrentObjectiveObject()
         {
-            return currentObjective;
+            return GetObjective(currentObjective);
         }
 
         private bool StartNextObjective()
         {
-            if (int.TryParse(currentObjective.NextObjective, out var nextObjectiveIndex))
+            if (int.TryParse(GetCurrentObjectiveObject().NextObjective, out var nextObjectiveIndex))
             {
 
             }
@@ -246,10 +254,10 @@ namespace SOQET.Others
                 return false;
             }
 
-            nextObjectiveIndex -= 1;
-            currentObjective = objectives[nextObjectiveIndex];
-            currentObjective.StartObjective();
-            SOQET.Debugging.Debug.Log($"starting {currentObjective.name} objective succesful");
+            currentObjective = nextObjectiveIndex;
+            Objective currentObjectObject = GetCurrentObjectiveObject();
+            currentObjectObject.StartObjective();
+            SOQET.Debugging.Debug.Log($"starting {currentObjectObject.name} objective succesful");
             return true;
         }
 
@@ -269,8 +277,9 @@ namespace SOQET.Others
             isStarted = true;
             SOQET.Debugging.Debug.Log($"{name} story started");
             OnStartStory?.Invoke();
-            currentObjective.StartObjective();
-            currentObjective.GetCurrentQuest().StartQuest();
+            Objective currentObjectiveObject = GetCurrentObjectiveObject();
+            currentObjectiveObject.StartObjective();
+            currentObjectiveObject.GetCurrentQuestObject().StartQuest();
         }
 
 
@@ -322,11 +331,20 @@ namespace SOQET.Others
 #if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
-                SetCurrentObjectiveToDefault();
-                currentObjective.SetCurrentQuestToDefault();
+                SetAllObjectivesAndQuestsToDefault();
                 MarkAsIncomplete();
             }
 #endif
+        }
+
+        private void SetAllObjectivesAndQuestsToDefault()
+        {
+            SetCurrentObjectiveToDefault();
+
+            foreach (Objective objective in GetObjectives())
+            {
+                objective.SetCurrentQuestToDefault();
+            }
         }
 
         public void Initialize()

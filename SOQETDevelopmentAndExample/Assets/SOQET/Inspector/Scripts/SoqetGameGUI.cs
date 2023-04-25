@@ -15,7 +15,7 @@ namespace SOQET.Inspector
 
         private Objective currentObjective;
         private Quest currentQuest;
-        private int keyPressCounter = 0;
+        [SerializeField] private int keyPressCounter = 1;
         private UnityAction UpdateGUICallback;
 
         private void OnEnable()
@@ -28,6 +28,7 @@ namespace SOQET.Inspector
             };
 
             soqetInspector.SubscribeToAllStoryEvents(UpdateGUICallback);
+            soqetInspector.SubscribeToAllObjectivesOnCompleteEvents(ResetKeyPressCounter);
         }
 
         private void Awake() 
@@ -42,12 +43,13 @@ namespace SOQET.Inspector
         {
             //unsubscribe from any story event here
             soqetInspector.UnsubscribeFromAllStoryEvents(UpdateGUICallback);
+            soqetInspector.UnsubscribeFromAllObjectivesOnCompleteEvents(ResetKeyPressCounter);
         }
 
         private void GetCurrentObjectiveAndQuest()
         {
-            currentObjective = soqetInspector.CurrentStory.GetCurrentObjective();
-            currentQuest = currentObjective.GetCurrentQuest();
+            currentObjective = soqetInspector.CurrentStory.GetCurrentObjectiveObject();
+            currentQuest = currentObjective.GetCurrentQuestObject();
         }
 
         private void UpdateGUI()
@@ -75,8 +77,14 @@ namespace SOQET.Inspector
             if (Input.GetKeyUp(KeyCode.C))
             {
                 //increment keypress
-                soqetInspector.CompletePlayerQuest(++keyPressCounter);
+                soqetInspector.CompletePlayerQuest(keyPressCounter);
+                keyPressCounter++;
             }    
+        }
+
+        private void ResetKeyPressCounter()
+        {
+            keyPressCounter = 0;
         }
     }
 }

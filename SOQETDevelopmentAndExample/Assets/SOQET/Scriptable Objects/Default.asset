@@ -1,36 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8217261052306660972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: press the mouse key to attack
-  m_EditorClassIdentifier: 
-  text: press the mouse key to attack
-  id: dfaec0c1-310c-43ee-a80c-9e4ebe943603
-  order: 2
-  isStarted: 0
-  isCompleted: 0
-  nextQuest: 3
-  OnStartQuest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnQuestCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  rect:
-    serializedVersion: 2
-    x: 100
-    y: 230
-    width: 200
-    height: 100
---- !u!114 &-8188069091760440963
+--- !u!114 &-6896424648236796353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Buy a Burger
+  m_Name: Go buy some food
   m_EditorClassIdentifier: 
-  text: Buy a Burger
+  text: Go buy some food
   quests:
-  - {fileID: 3343429628443857850}
-  - {fileID: -4973107291105239696}
+  - {fileID: 8356973155289083441}
+  - {fileID: -2635068323848641406}
   removedQuests: []
-  id: 46e25679-88b6-4e99-ab7f-e6c32e8c6e0b
+  id: 6f8a2f66-bd1a-4a45-a7c8-dababd080c38
   order: 2
   isStarted: 0
   isCompleted: 0
   nextObjective: 3
-  currentQuest: {fileID: 3343429628443857850}
-  defaultQuest: {fileID: 3343429628443857850}
+  currentQuest: 1
+  defaultQuest: 1
   OnStartObjective:
     m_PersistentCalls:
       m_Calls: []
@@ -67,7 +37,7 @@ MonoBehaviour:
     y: 0
     width: 400
     height: 400
---- !u!114 &-4973107291105239696
+--- !u!114 &-4757770554169376347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,10 +47,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Pay for your burger
+  m_Name: Catch a fish
   m_EditorClassIdentifier: 
-  text: Pay for your burger
-  id: d6475798-1d3e-4a06-bfa7-4e61bee348db
+  text: Catch a fish
+  id: 3571247b-9855-434a-8e29-13468fcb4963
   order: 2
   isStarted: 0
   isCompleted: 0
@@ -97,7 +67,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
---- !u!114 &-4459781067531828852
+--- !u!114 &-3985368896196556984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,10 +77,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: catch a fish
+  m_Name: Create a fire
   m_EditorClassIdentifier: 
-  text: catch a fish
-  id: b1f3b9c1-31c2-4322-9f8a-a05e422cef9d
+  text: Create a fire
+  id: efdf52b4-6e2b-4a7c-b390-2971f58400ea
+  order: 3
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 4
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 330
+    width: 200
+    height: 100
+--- !u!114 &-2635068323848641406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Pay for food
+  m_EditorClassIdentifier: 
+  text: Pay for food
+  id: ed596f89-b349-4cbe-b40a-780d619f0ab5
   order: 2
   isStarted: 0
   isCompleted: 0
@@ -127,44 +127,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
---- !u!114 &-4401289540772823235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Get to land
-  m_EditorClassIdentifier: 
-  text: Get to land
-  quests:
-  - {fileID: -1250228496285367552}
-  - {fileID: -3155914174614093386}
-  removedQuests: []
-  id: 0f131186-9c11-4b47-affc-94c81eac5b5a
-  order: 4
-  isStarted: 0
-  isCompleted: 0
-  nextObjective: 5
-  currentQuest: {fileID: -1250228496285367552}
-  defaultQuest: {fileID: -1250228496285367552}
-  OnStartObjective:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectiveCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  heightMultiplier: 4
-  rect:
-    serializedVersion: 2
-    x: 1350
-    y: 0
-    width: 400
-    height: 400
---- !u!114 &-3155914174614093386
+--- !u!114 &-2233470931834061478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,70 +137,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Drive to the nearest island
+  m_Name: Put the fish on the fire
   m_EditorClassIdentifier: 
-  text: Drive to the nearest island
-  id: 70fef727-19ca-4b8f-92fb-a8e47653d999
-  order: 2
-  isStarted: 0
-  isCompleted: 0
-  nextQuest: 3
-  OnStartQuest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnQuestCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  rect:
-    serializedVersion: 2
-    x: 100
-    y: 230
-    width: 200
-    height: 100
---- !u!114 &-1250228496285367552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Find a nearby boat
-  m_EditorClassIdentifier: 
-  text: Find a nearby boat
-  id: 55d14f24-2b28-46bd-ad38-601385ab25e6
-  order: 1
-  isStarted: 0
-  isCompleted: 0
-  nextQuest: 2
-  OnStartQuest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnQuestCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  rect:
-    serializedVersion: 2
-    x: 100
-    y: 130
-    width: 200
-    height: 100
---- !u!114 &-567770447462944839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: put the fish in the fire
-  m_EditorClassIdentifier: 
-  text: put the fish in the fire
-  id: 9dec4178-76b2-482c-9c46-b63102c2f658
+  text: Put the fish on the fire
+  id: 481c8952-05af-4e59-9e2e-0d37427b5bb3
   order: 4
   isStarted: 0
   isCompleted: 0
@@ -254,7 +157,7 @@ MonoBehaviour:
     y: 430.00003
     width: 200
     height: 100
---- !u!114 &-208371408631516965
+--- !u!114 &-2183156242035565135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,14 +167,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Survive a plane crash on water
+  m_Name: Go fishing
   m_EditorClassIdentifier: 
-  text: Survive a plane crash on water
-  id: 3a102ce8-ed63-42ee-ae94-0063ecdf45de
-  order: 3
+  text: Go fishing
+  id: 8be5df75-2f5c-4092-9c01-d4063b77c78d
+  order: 1
   isStarted: 0
   isCompleted: 0
-  nextQuest: 4
+  nextQuest: 2
   OnStartQuest:
     m_PersistentCalls:
       m_Calls: []
@@ -281,43 +184,10 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 100
-    y: 330
+    y: 130
     width: 200
     height: 100
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d6c23998d91524409a33aeee4621ad4, type: 3}
-  m_Name: Default
-  m_EditorClassIdentifier: 
-  objectives:
-  - {fileID: 2134390856815189899}
-  - {fileID: -8188069091760440963}
-  - {fileID: 5552348266186561698}
-  - {fileID: -4401289540772823235}
-  - {fileID: 479985095856158725}
-  removedObjectives: []
-  currentObjective: {fileID: 2134390856815189899}
-  defaultObjective: {fileID: 2134390856815189899}
-  isStarted: 0
-  isCompleted: 0
-  soqetEditorSettings:
-    saveState: 0
-    enableDebug: 1
-    enableStory: 1
-  OnStartStory:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStoryCompleted:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &479985095856158725
+--- !u!114 &-750907270615579957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,96 +197,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Cook some food
+  m_Name: Survive on the sea
   m_EditorClassIdentifier: 
-  text: Cook some food
+  text: Survive on the sea
   quests:
-  - {fileID: 845738051471506993}
-  - {fileID: -4459781067531828852}
-  - {fileID: 7903459538064585767}
-  - {fileID: -567770447462944839}
+  - {fileID: 7992101054054415389}
+  - {fileID: 2809571930648499689}
   removedQuests: []
-  id: f3571788-a916-483c-a4c6-8ada3851dc79
-  order: 5
+  id: 145d7cca-2e04-43ea-b246-e3b49831aeb4
+  order: 4
   isStarted: 0
   isCompleted: 0
-  nextObjective: 6
-  currentQuest: {fileID: 845738051471506993}
-  defaultQuest: {fileID: 845738051471506993}
+  nextObjective: 5
+  currentQuest: 1
+  defaultQuest: 1
   OnStartObjective:
     m_PersistentCalls:
       m_Calls: []
   OnObjectiveCompleted:
     m_PersistentCalls:
       m_Calls: []
-  heightMultiplier: 6
+  heightMultiplier: 4
   rect:
     serializedVersion: 2
-    x: 1813
-    y: 14
+    x: 1350
+    y: 0
     width: 400
-    height: 600
---- !u!114 &845738051471506993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: go fishing
-  m_EditorClassIdentifier: 
-  text: go fishing
-  id: 7155116d-5470-4870-8c62-6974b9d0345f
-  order: 1
-  isStarted: 0
-  isCompleted: 0
-  nextQuest: 2
-  OnStartQuest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnQuestCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  rect:
-    serializedVersion: 2
-    x: 100
-    y: 130
-    width: 200
-    height: 100
---- !u!114 &1777808226374794867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Use the direction keys to move
-  m_EditorClassIdentifier: 
-  text: Use the direction keys to move
-  id: fef7b978-430e-49b1-af34-02c796248d5c
-  order: 1
-  isStarted: 0
-  isCompleted: 0
-  nextQuest: 2
-  OnStartQuest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnQuestCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  rect:
-    serializedVersion: 2
-    x: 100
-    y: 130
-    width: 200
-    height: 100
---- !u!114 &2134390856815189899
+    height: 400
+--- !u!114 &-500494094103182964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -426,20 +234,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Complete Tutorial
+  m_Name: Complete the Tutorial
   m_EditorClassIdentifier: 
-  text: Complete Tutorial
+  text: Complete the Tutorial
   quests:
-  - {fileID: 1777808226374794867}
-  - {fileID: -8217261052306660972}
+  - {fileID: 6519618458066121019}
+  - {fileID: 2791488622410385499}
   removedQuests: []
-  id: 0006f16a-1e68-47f6-b7c3-5b3a87854b50
+  id: 65f71406-cdb1-4f67-914c-26b62fd5a582
   order: 1
   isStarted: 0
   isCompleted: 0
   nextObjective: 2
-  currentQuest: {fileID: 1777808226374794867}
-  defaultQuest: {fileID: 1777808226374794867}
+  currentQuest: 1
+  defaultQuest: 1
   OnStartObjective:
     m_PersistentCalls:
       m_Calls: []
@@ -453,7 +261,7 @@ MonoBehaviour:
     y: 0
     width: 400
     height: 400
---- !u!114 &3343429628443857850
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -462,28 +270,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Go to Mc Donalds
+  m_Script: {fileID: 11500000, guid: 1d6c23998d91524409a33aeee4621ad4, type: 3}
+  m_Name: Default
   m_EditorClassIdentifier: 
-  text: Go to Mc Donalds
-  id: 0c8265e5-ba9d-4cf0-8ed8-78ed74613af2
-  order: 1
+  objectives:
+  - {fileID: -500494094103182964}
+  - {fileID: -6896424648236796353}
+  - {fileID: 5261849105993937677}
+  - {fileID: -750907270615579957}
+  - {fileID: 533941327755531819}
+  removedObjectives: []
+  currentObjective: 1
+  defaultObjective: 1
   isStarted: 0
   isCompleted: 0
-  nextQuest: 2
-  OnStartQuest:
+  soqetEditorSettings:
+    saveState: 0
+    enableDebug: 1
+    enableStory: 1
+  OnStartStory:
     m_PersistentCalls:
       m_Calls: []
-  OnQuestCompleted:
+  OnStoryCompleted:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &533941327755531819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
+  m_Name: Cook some food
+  m_EditorClassIdentifier: 
+  text: Cook some food
+  quests:
+  - {fileID: -2183156242035565135}
+  - {fileID: -4757770554169376347}
+  - {fileID: -3985368896196556984}
+  - {fileID: -2233470931834061478}
+  removedQuests: []
+  id: f60232be-80df-42b0-992d-f3b391f4fc44
+  order: 5
+  isStarted: 0
+  isCompleted: 0
+  nextObjective: 6
+  currentQuest: 1
+  defaultQuest: 1
+  OnStartObjective:
+    m_PersistentCalls:
+      m_Calls: []
+  OnObjectiveCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  heightMultiplier: 6
   rect:
     serializedVersion: 2
-    x: 100
-    y: 130
-    width: 200
-    height: 100
---- !u!114 &3585332363871128560
+    x: 1800
+    y: 0
+    width: 400
+    height: 600
+--- !u!114 &2791488622410385499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -493,10 +343,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Go to the aiport
+  m_Name: Click the mouse button to attack
   m_EditorClassIdentifier: 
-  text: Go to the aiport
-  id: 605dc9dc-b16f-4070-856a-d77bb6eb02fc
+  text: Click the mouse button to attack
+  id: 800328cd-b78c-4bf0-b01d-99ba58aef601
   order: 2
   isStarted: 0
   isCompleted: 0
@@ -513,45 +363,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
---- !u!114 &5552348266186561698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Meet up with a friend in America
-  m_EditorClassIdentifier: 
-  text: Meet up with a friend in America
-  quests:
-  - {fileID: 7264981539134582124}
-  - {fileID: 3585332363871128560}
-  - {fileID: -208371408631516965}
-  removedQuests: []
-  id: cc0961df-6af5-489f-857f-c00ac8b71970
-  order: 3
-  isStarted: 0
-  isCompleted: 0
-  nextObjective: 4
-  currentQuest: {fileID: 7264981539134582124}
-  defaultQuest: {fileID: 7264981539134582124}
-  OnStartObjective:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectiveCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  heightMultiplier: 5
-  rect:
-    serializedVersion: 2
-    x: 900
-    y: 0
-    width: 400
-    height: 500
---- !u!114 &7264981539134582124
+--- !u!114 &2809571930648499689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -561,10 +373,77 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Book a plane ticket to America
+  m_Name: Get to dry land
   m_EditorClassIdentifier: 
-  text: Book a plane ticket to America
-  id: 465de55c-ce34-4ab3-bf3e-d6b3a6f824f5
+  text: Get to dry land
+  id: abc74b0b-dd8a-4f53-8efc-a3147711e102
+  order: 2
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 3
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 230
+    width: 200
+    height: 100
+--- !u!114 &5261849105993937677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
+  m_Name: Visit your friend
+  m_EditorClassIdentifier: 
+  text: Visit your friend
+  quests:
+  - {fileID: 5878749336214636844}
+  - {fileID: 7223900385237629471}
+  removedQuests: []
+  id: 4157679f-d050-4a8d-aac1-369c810cffb4
+  order: 3
+  isStarted: 0
+  isCompleted: 0
+  nextObjective: 4
+  currentQuest: 1
+  defaultQuest: 1
+  OnStartObjective:
+    m_PersistentCalls:
+      m_Calls: []
+  OnObjectiveCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  heightMultiplier: 4
+  rect:
+    serializedVersion: 2
+    x: 900
+    y: 0
+    width: 400
+    height: 400
+--- !u!114 &5878749336214636844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Book a flight to america
+  m_EditorClassIdentifier: 
+  text: Book a flight to america
+  id: 6910a79b-7d0a-49c4-ab4b-5ac9103e9c7f
   order: 1
   isStarted: 0
   isCompleted: 0
@@ -581,7 +460,7 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
---- !u!114 &7903459538064585767
+--- !u!114 &6519618458066121019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,14 +470,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: make a fire
+  m_Name: Press the directional keys to move
   m_EditorClassIdentifier: 
-  text: make a fire
-  id: 2b53724a-6531-47e8-b38a-2bb10c146334
-  order: 3
+  text: Press the directional keys to move
+  id: 100fba50-5b8e-4fac-b550-c7c8876acc1f
+  order: 1
   isStarted: 0
   isCompleted: 0
-  nextQuest: 4
+  nextQuest: 2
   OnStartQuest:
     m_PersistentCalls:
       m_Calls: []
@@ -608,6 +487,96 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 100
-    y: 330
+    y: 130
+    width: 200
+    height: 100
+--- !u!114 &7223900385237629471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Survive a plane crash
+  m_EditorClassIdentifier: 
+  text: Survive a plane crash
+  id: f3fb033e-acbe-42f7-908f-8567eb7e7db1
+  order: 2
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 3
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 230
+    width: 200
+    height: 100
+--- !u!114 &7992101054054415389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Find a boat
+  m_EditorClassIdentifier: 
+  text: Find a boat
+  id: 3c60cffb-dd84-4f5a-9af0-b56312cd9a15
+  order: 1
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 2
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 130
+    width: 200
+    height: 100
+--- !u!114 &8356973155289083441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: Go to Mc donalds
+  m_EditorClassIdentifier: 
+  text: Go to Mc donalds
+  id: 12f61b41-6816-4482-8f76-82805763d23f
+  order: 1
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 2
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 130
     width: 200
     height: 100

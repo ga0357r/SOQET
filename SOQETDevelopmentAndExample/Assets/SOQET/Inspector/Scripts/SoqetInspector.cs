@@ -94,7 +94,7 @@ public class SoqetInspector : MonoBehaviour
     public void CompletePlayerQuest(int questNumber)
     {
         //use current objective
-        Objective currentObjective = currentStory.GetCurrentObjective();
+        Objective currentObjective = currentStory.GetCurrentObjectiveObject();
         
         if (currentObjective && !currentObjective.IsCompleted)
         {

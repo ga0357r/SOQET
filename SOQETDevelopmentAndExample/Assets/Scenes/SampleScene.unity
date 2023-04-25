@@ -392,6 +392,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1519128265946724278, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: keyPressCounter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519128265946724278, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: socketInspector
       value: 
       objectReference: {fileID: 1009503131}
@@ -419,7 +423,7 @@ PrefabInstance:
     - target: {fileID: 5288270143819656824, guid: 7d13ffd0c6421f841ae2875a25faa2c4, type: 3}
       propertyPath: currentStory
       value: 
-      objectReference: {fileID: 11400000, guid: 78e5a9824e21daf4fbb7ca2aad1883ef, type: 2}
+      objectReference: {fileID: 11400000, guid: 0379be4e14340ac46bf725b0b928bac3, type: 2}
     - target: {fileID: 5288270143819656825, guid: 7d13ffd0c6421f841ae2875a25faa2c4, type: 3}
       propertyPath: m_Name
       value: Soqet Inspector

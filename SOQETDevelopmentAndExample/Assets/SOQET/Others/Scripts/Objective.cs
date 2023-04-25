@@ -65,8 +65,8 @@ namespace SOQET.Others
         [HideInInspector] [SerializeField] private string nextObjective;
         public string NextObjective { get => nextObjective; set => nextObjective = value; }
 
-        [HideInInspector] [SerializeField] private Quest currentQuest;
-        [HideInInspector] [SerializeField] private Quest defaultQuest;
+        [HideInInspector] [SerializeField] private int currentQuest;
+        [HideInInspector] [SerializeField] private int defaultQuest;
 
         public UnityEvent OnStartObjective = new UnityEvent();
         public UnityEvent OnObjectiveCompleted = new UnityEvent();
@@ -104,16 +104,26 @@ namespace SOQET.Others
         {
             #if UNITY_EDITOR
                 Quest quest = MakeQuest();
-
-                if (quests.Count.Equals(0))
-                {
-                    defaultQuest = quest;
-                    currentQuest = defaultQuest;
-                }
-
+                SetupCurrentAndDefaultQuests();
                 AddQuest(quest);
                 EditorUtility.SetDirty(this);
             #endif
+        }
+
+        private void SetupCurrentAndDefaultQuests()
+        {
+            //SetupCurrentAndDefaultQuests to always be quest 1
+            if (quests.Count.Equals(0))
+                {
+                    defaultQuest = 1;
+                    currentQuest = defaultQuest;
+                }
+
+            else
+            {
+                defaultQuest = 1;
+                currentQuest = defaultQuest;
+            }
         }
 
         public void DeleteQuest(Quest questToDelete)
@@ -340,9 +350,10 @@ namespace SOQET.Others
 
         public bool StartNextQuest()
         {
-            if (int.TryParse(currentQuest.NextQuest, out var nextQuestIndex))
+            Quest currentQuestObject = GetCurrentQuestObject();
+            if (int.TryParse(currentQuestObject.NextQuest, out var nextQuestIndex))
             {
-;
+
             }
 
             else
@@ -357,16 +368,16 @@ namespace SOQET.Others
                 return false;
             }
 
-            nextQuestIndex -= 1;
-            currentQuest = quests[nextQuestIndex];
-            currentQuest.StartQuest();
-            SOQET.Debugging.Debug.Log($"starting {currentQuest.name} quest succesful");
+            currentQuest = nextQuestIndex;
+            currentQuestObject = GetCurrentQuestObject();
+            currentQuestObject.StartQuest();
+            SOQET.Debugging.Debug.Log($"starting {currentQuestObject.name} quest succesful");
             return true;
         }
 
-        public Quest GetCurrentQuest()
+        public Quest GetCurrentQuestObject()
         {
-            return currentQuest;
+            return GetQuest(currentQuest);
         }
 
         public float CalculateObjectiveProgress()
