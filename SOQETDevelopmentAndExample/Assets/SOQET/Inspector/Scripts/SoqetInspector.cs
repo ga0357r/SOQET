@@ -20,6 +20,18 @@ public class SoqetInspector : MonoBehaviour
 
     #endregion
 
+    private void OnEnable() 
+    {
+        //subcribe to any story event here
+        currentStory.Initialize();
+    }
+
+    private void OnDisable() 
+    {
+        //unsubscribe from any story event here
+        currentStory.Dispose();
+    }
+    
     private void Awake()
     {
         if (instance)
@@ -31,8 +43,6 @@ public class SoqetInspector : MonoBehaviour
         {
             instance = this;
         }
-
-        currentStory.Initialize();
     }
 
     public void OnApplicationQuit()
@@ -149,6 +159,32 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void UnsubscribeFromQuestOnCompleteEvent(string objectiveName, string questName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            Quest quest = objective.GetQuest(questName);
+
+            if (quest)
+            {
+                quest.OnQuestCompleted.RemoveListener(call);
+                SOQET.Debugging.Debug.Log($"Unsubscribed from {questName} quest OnQuestCompleted event");
+            }
+
+            else
+            {
+                SOQET.Debugging.Debug.LogError($"{questName} quest not found");
+            }
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
     public void SubscribeToObjectiveOnCompleteEvent(string objectiveName, UnityAction call)
     {
         Objective objective = CurrentStory.GetObjective(objectiveName);
@@ -157,6 +193,22 @@ public class SoqetInspector : MonoBehaviour
         {
             objective.OnObjectiveCompleted.AddListener(call);
             SOQET.Debugging.Debug.Log($"Subscribed to {objectiveName} objective OnObjectiveCompleted event");
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+    public void UnsubscribeFromObjectiveOnCompleteEvent(string objectiveName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            objective.OnObjectiveCompleted.RemoveListener(call);
+            SOQET.Debugging.Debug.Log($"Unsubscribed from {objectiveName} objective OnObjectiveCompleted event");
         }
 
         else
@@ -177,6 +229,18 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void UnsubscribeFromAllQuestsOnCompleteEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            foreach (Quest quest in objective.GetQuests())
+            {
+                quest.OnQuestCompleted.RemoveListener(call);
+                SOQET.Debugging.Debug.Log($"unsubscribed from {quest} quest OnQuestCompleted event");
+            }
+        }
+    }
+
     public void SubscribeToAllQuestsOnStartEvents(UnityAction call)
     {
         foreach (Objective objective in currentStory.GetObjectives())
@@ -185,6 +249,18 @@ public class SoqetInspector : MonoBehaviour
             {
                 quest.OnStartQuest.AddListener(call);
                 SOQET.Debugging.Debug.Log($"Subscribed to {quest} quest OnStartQuest event");
+            }
+        }
+    }
+
+    public void UnsubscribeFromAllQuestsOnStartEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            foreach (Quest quest in objective.GetQuests())
+            {
+                quest.OnStartQuest.RemoveListener(call);
+                SOQET.Debugging.Debug.Log($"Unsubscribed from {quest} quest OnStartQuest event");
             }
         }
     }
@@ -198,6 +274,15 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void UnsubscribeFromAllObjectivesOnCompleteEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            objective.OnObjectiveCompleted.RemoveListener(call);
+            SOQET.Debugging.Debug.Log($"Unsubscribed from {objective} objective OnObjectiveCompleted event");
+        }
+    }
+
     public void SubscribeToAllObjectivesOnStartEvents(UnityAction call)
     {
         foreach (Objective objective in currentStory.GetObjectives())
@@ -207,14 +292,37 @@ public class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void UnsubscribeFromAllObjectivesOnStartEvents(UnityAction call)
+    {
+        foreach (Objective objective in currentStory.GetObjectives())
+        {
+            objective.OnStartObjective.RemoveListener(call);
+            SOQET.Debugging.Debug.Log($"Unsubscribed from {objective} objective OnStartObjective event");
+        }
+    }
+
     public void SubscribeToOnStartStoryEvent(UnityAction call)
     {
         currentStory.OnStartStory.AddListener(call);
+        SOQET.Debugging.Debug.Log($"Subscribed to {currentStory} story OnStartStory event");
+    }
+
+    public void UnsubscribeFromOnStartStoryEvent(UnityAction call)
+    {
+        currentStory.OnStartStory.RemoveListener(call);
+        SOQET.Debugging.Debug.Log($"Unsubscribed from {currentStory} story OnStartStory event");
     }
 
     public void SubscribeToOnStoryCompletedEvent(UnityAction call)
     {
         currentStory.OnStoryCompleted.AddListener(call);
+        SOQET.Debugging.Debug.Log($"Subscribed to {currentStory} story OnStoryCompleted event");
+    }
+
+    public void UnsubscribeFromOnStoryCompletedEvent(UnityAction call)
+    {
+        currentStory.OnStoryCompleted.RemoveListener(call);
+        SOQET.Debugging.Debug.Log($"Unsubscribed from {currentStory} story OnStoryCompleted event");
     }
 
     public void SubscribeToAllStoryEvents(UnityAction call)
@@ -222,11 +330,26 @@ public class SoqetInspector : MonoBehaviour
         //OnStart
         SubscribeToOnStartStoryEvent(call);
         SubscribeToAllObjectivesOnStartEvents(call);
-        SubscribeToAllObjectivesOnStartEvents(call);
+        SubscribeToAllQuestsOnStartEvents(call);
 
         //OnComplete
         SubscribeToOnStoryCompletedEvent(call);
         SubscribeToAllObjectivesOnCompleteEvents(call);
         SubscribeToAllQuestsOnCompleteEvents(call);
+        SOQET.Debugging.Debug.Log($"Subscribed to all {currentStory} story events");
+    }
+
+    public void UnsubscribeFromAllStoryEvents(UnityAction call)
+    {
+        //OnStart
+        UnsubscribeFromOnStartStoryEvent(call);
+        UnsubscribeFromAllObjectivesOnStartEvents(call);
+        UnsubscribeFromAllQuestsOnStartEvents(call);
+
+        //OnComplete
+        UnsubscribeFromOnStoryCompletedEvent(call);
+        UnsubscribeFromAllObjectivesOnCompleteEvents(call);
+        UnsubscribeFromAllQuestsOnCompleteEvents(call);
+        SOQET.Debugging.Debug.Log($"Unsubscribed from all {currentStory} story story events");
     }
 }

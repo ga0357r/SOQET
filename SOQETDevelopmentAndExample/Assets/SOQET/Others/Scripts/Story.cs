@@ -25,6 +25,7 @@ namespace SOQET.Others
         [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
         public UnityEvent OnStartStory = new UnityEvent();
         public UnityEvent OnStoryCompleted = new UnityEvent();
+        private UnityAction QuestCompletedCallback;
 
 #if UNITY_EDITOR
         private void OnValidate()
@@ -334,6 +335,17 @@ namespace SOQET.Others
             StartStory();
         }
 
+        public void Dispose()
+        {
+            foreach (var objective in GetObjectives())
+            {
+                foreach (var quest in objective.GetQuests())
+                {
+                    quest.OnQuestCompleted.RemoveListener(QuestCompletedCallback);
+                }
+            }
+        }
+
         private void HandleAllEventCompletions()
         {
             var objectives = GetObjectives();
@@ -341,36 +353,41 @@ namespace SOQET.Others
             {
                 foreach (var quest in objective.GetQuests())
                 {
-                    quest.OnQuestCompleted.AddListener
-                    (
-                        () =>
-                        {
-                            bool nextQuestExists = objective.StartNextQuest();
+                    QuestCompletedCallback = () =>
+                    {
+                        EventTick(objective);
+                    };
 
-                            if (nextQuestExists)
-                            {
-                                return;
-                            }
-
-                            else if (!nextQuestExists)
-                            {
-                                objective.CompleteObjective();
-                                bool nextObjectiveExists = StartNextObjective();
-
-                                if (nextObjectiveExists)
-                                {
-                                    return;
-                                }
-
-                                else if (!nextObjectiveExists)
-                                {
-                                    CompleteStory();
-                                }
-                            }
-                        }
-                    );
+                    quest.OnQuestCompleted.AddListener(QuestCompletedCallback);
                 }
             }
+        }
+
+        private void EventTick(Objective objective)
+        {
+            bool nextQuestExists = objective.StartNextQuest();
+
+            if (nextQuestExists)
+            {
+                return;
+            }
+
+            else if (!nextQuestExists)
+            {
+                objective.CompleteObjective();
+                bool nextObjectiveExists = StartNextObjective();
+
+                if (nextObjectiveExists)
+                {
+                    return;
+                }
+
+                else if (!nextObjectiveExists)
+                {
+                    CompleteStory();
+                }
+            }
+
         }
     }
 }

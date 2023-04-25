@@ -3,45 +3,51 @@ using TMPro;
 using UnityEngine.UI;
 using SOQET.Others;
 using SOQET.Debugging;
+using UnityEngine.Events;
 
 namespace SOQET.Inspector
 {
     public class SoqetGameGUI : MonoBehaviour
     {
-        [SerializeField] private SoqetInspector soqetInspector;
+        private SoqetInspector soqetInspector;
         [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText;
         [SerializeField] private Slider currentObjectiveProgressSlider;
 
-        [SerializeField] private Objective currentObjective;
-        [SerializeField] private Quest currentQuest;
-        [SerializeField] private int keyPressCounter = 0;
+        private Objective currentObjective;
+        private Quest currentQuest;
+        private int keyPressCounter = 0;
+        private UnityAction UpdateGUICallback;
 
         private void OnEnable()
         {
             //subcribe to any story event here
-            soqetInspector.SubscribeToAllStoryEvents(
-                () =>
-                {
-                    GetCurrentObjectiveAndQuest();
-                    UpdateGUI();
-                });
+            UpdateGUICallback = ()=>
+            {
+                GetCurrentObjectiveAndQuest();
+                UpdateGUI();
+            };
+
+            soqetInspector.SubscribeToAllStoryEvents(UpdateGUICallback);
+        }
+
+        private void Awake() 
+        {
+            if(soqetInspector == null)
+            {
+                soqetInspector = FindObjectOfType<SoqetInspector>();
+            }
         }
 
         private void OnDisable() 
         {
             //unsubscribe from any story event here
+            soqetInspector.UnsubscribeFromAllStoryEvents(UpdateGUICallback);
         }
 
         private void GetCurrentObjectiveAndQuest()
         {
             currentObjective = soqetInspector.CurrentStory.GetCurrentObjective();
             currentQuest = currentObjective.GetCurrentQuest();
-        }
-
-        private void Start() 
-        {
-            
-
         }
 
         private void UpdateGUI()

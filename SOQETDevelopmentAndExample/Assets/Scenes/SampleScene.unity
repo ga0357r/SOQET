@@ -390,7 +390,7 @@ PrefabInstance:
     - target: {fileID: 1519128265946724278, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: soqetInspector
       value: 
-      objectReference: {fileID: 1009503131}
+      objectReference: {fileID: 0}
     - target: {fileID: 1519128265946724278, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: socketInspector
       value: 
