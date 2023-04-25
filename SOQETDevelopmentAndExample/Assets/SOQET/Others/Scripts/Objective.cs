@@ -358,6 +358,7 @@ namespace SOQET.Others
 
             nextQuestIndex -= 1;
             currentQuest = quests[nextQuestIndex];
+            currentQuest.StartQuest();
             SOQET.Debugging.Debug.Log($"starting {currentQuest.name} quest succesful");
             return true;
         }

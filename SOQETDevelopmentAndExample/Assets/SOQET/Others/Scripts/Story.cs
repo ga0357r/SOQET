@@ -247,6 +247,7 @@ namespace SOQET.Others
 
             nextObjectiveIndex -= 1;
             currentObjective = objectives[nextObjectiveIndex];
+            currentObjective.StartObjective();
             SOQET.Debugging.Debug.Log($"starting {currentObjective.name} objective succesful");
             return true;
         }
@@ -265,8 +266,10 @@ namespace SOQET.Others
             }
 
             isStarted = true;
-            SOQET.Debugging.Debug.Log($"{name} story completed");
+            SOQET.Debugging.Debug.Log($"{name} story started");
             OnStartStory?.Invoke();
+            currentObjective.StartObjective();
+            currentObjective.GetCurrentQuest().StartQuest();
         }
 
 
@@ -319,19 +322,10 @@ namespace SOQET.Others
 #endif
         }
 
-        public void SetupInternalStoryEvents()
+        public void Initialize()
         {
-            //handle event startup
-            HandleAllEventStartups();
-            //handle event completion
             HandleAllEventCompletions();
-
-            SOQET.Debugging.Debug.Log("Setup Internal Story Events");
-        }
-
-        private void HandleAllEventStartups()
-        {
-            
+            StartStory();
         }
 
         private void HandleAllEventCompletions()

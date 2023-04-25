@@ -32,7 +32,7 @@ public class SoqetInspector : MonoBehaviour
             instance = this;
         }
 
-        currentStory.SetupInternalStoryEvents();
+        currentStory.Initialize();
     }
 
     public void OnApplicationQuit()
