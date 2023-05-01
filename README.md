@@ -2,7 +2,7 @@
 SOQET is a new tool which is being created to streamline the process of creating objectives and quests in video games. This tool aims to improve the productivity and efficiency of game developers worldwide.
 
 # Features
-SOQET provides a simple to use interface for creating and managing objectives and quests. It allows developers to create a hierarchy of objectives and quests to make it easy to track progress. It allows developers to communicate the progress and status of objectives and quests to other game systems to trigger events or actions.
+SOQET provides a simple to use interface for creating and managing objectives and quests. It uses an event based architecture to allow developers handle quests, objectives, and stories to make it easy to track progress. It allows developers to communicate the progress and status of objectives and quests to other game systems to trigger events or actions.
 The tool is designed to be easy to use, however, right now, you will need some programming experience to add feedbacks. I plan to mitigate this issue in the future through visual scripting. 
 
 # Getting Started
