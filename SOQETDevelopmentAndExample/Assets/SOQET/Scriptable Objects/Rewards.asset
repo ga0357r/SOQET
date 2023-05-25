@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6c23998d91524409a33aeee4621ad4, type: 3}
+  m_Name: Rewards
+  m_EditorClassIdentifier: 
+  objectives:
+  - {fileID: 6476070630989699648}
+  removedObjectives: []
+  currentObjective: 1
+  defaultObjective: 1
+  isStarted: 0
+  isCompleted: 0
+  soqetEditorSettings:
+    saveState: 0
+    enableDebug: 1
+    enableStory: 1
+  OnStartStory:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStoryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2281351843720301905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 
+  id: 9aa1e105-6585-4cbc-99b3-dc48d9626eec
+  order: 1
+  isStarted: 0
+  isCompleted: 0
+  nextQuest: 2
+  OnStartQuest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQuestCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  rect:
+    serializedVersion: 2
+    x: 100
+    y: 130
+    width: 200
+    height: 100
+  rewards:
+  - name: Give 20 Exp
+    rewardType: 1
+    amount: 20
+    ReleaseReward:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &6476070630989699648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 
+  quests:
+  - {fileID: 2281351843720301905}
+  removedQuests: []
+  id: e31c86b9-7fdb-4578-a623-bbb4ae627061
+  order: 1
+  isStarted: 0
+  isCompleted: 0
+  nextObjective: 2
+  currentQuest: 1
+  defaultQuest: 1
+  OnStartObjective:
+    m_PersistentCalls:
+      m_Calls: []
+  OnObjectiveCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  heightMultiplier: 3
+  rect:
+    serializedVersion: 2
+    x: 121
+    y: 20
+    width: 400
+    height: 300

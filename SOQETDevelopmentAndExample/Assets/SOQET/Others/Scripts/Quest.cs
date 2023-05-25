@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using SOQET.Editor;
+using System.Collections.Generic;
+using static SOQET.Others.Reward;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -54,6 +56,9 @@ namespace SOQET.Others
 
         public Rect Rect { get => rect; }
         #endif
+
+        [SerializeField] private List<Reward> rewards = new List<Reward>();
+        public List<Reward> Rewards => rewards;
 
         
         public void SetRectPosition(Vector2 newPosition)
@@ -128,6 +133,35 @@ namespace SOQET.Others
             isStarted = false;
             isCompleted = false;
             SOQET.Debugging.Debug.Log($"{name} quest marked incomplete");
+        }
+
+        public void GiveRewards()
+        {
+            foreach (Reward reward in Rewards)
+            {
+                switch (reward.CurrentRewardType)
+                {
+                    case RewardType.None:
+                        break;
+                    case RewardType.ExperiencePoints:
+                        //run event here that gives player experience points
+                        //give player experience points
+                        //reward.ReleaseReward?.Invoke()
+                        break;
+                    case RewardType.ItemsAndEquipments:
+                        //run event here that gives player items and equipments
+                        //give player items and equipments
+                        break;
+
+                    case RewardType.AchievementsAndTrophies:
+                        //run event here that gives achievemtns and trophies
+                        //give achievemtns and trophies
+                        break;
+                    default:
+                        Console.WriteLine("Unknown reward type!");
+                        break;
+                }
+            }
         }
     }
 }

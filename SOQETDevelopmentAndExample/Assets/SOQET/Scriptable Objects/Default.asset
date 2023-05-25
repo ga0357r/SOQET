@@ -67,6 +67,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &-3985368896196556984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +98,7 @@ MonoBehaviour:
     y: 330
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &-2635068323848641406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &-2233470931834061478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +160,7 @@ MonoBehaviour:
     y: 430.00003
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &-2183156242035565135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +191,7 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &-750907270615579957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +368,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &2809571930648499689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +399,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &5261849105993937677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +467,7 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &6519618458066121019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +498,7 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &7223900385237629471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +529,7 @@ MonoBehaviour:
     y: 230
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &7992101054054415389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +560,7 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
+  rewards: []
 --- !u!114 &8356973155289083441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,3 +591,4 @@ MonoBehaviour:
     y: 130
     width: 200
     height: 100
+  rewards: []
