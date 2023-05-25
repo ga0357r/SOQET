@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SOQET.Editor
 {
     [Serializable]
-    public class SoqetEditorSettings
+    public sealed class SoqetEditorSettings
     {
 #if UNITY_EDITOR
         public const float canvasSize = 1000000;

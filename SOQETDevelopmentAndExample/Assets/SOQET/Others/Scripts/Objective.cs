@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace SOQET.Others
 {
-    public class Objective : ScriptableObject, ISerializationCallbackReceiver
+    public sealed class Objective : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField] private string text;
 

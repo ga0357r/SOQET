@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace SOQET.Inspector
 {
-    public class SoqetGameGUI : MonoBehaviour
+    public sealed class SoqetGameGUI : MonoBehaviour
     {
         private SoqetInspector soqetInspector;
         [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText,gameCompletionText;

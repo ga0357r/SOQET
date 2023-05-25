@@ -8,7 +8,7 @@ using SOQET.Others;
 
 namespace SOQET.Editor
 {
-    public class SoqetEditor : EditorWindow
+    public sealed class SoqetEditor : EditorWindow
     {
         private static Story selectedStory;
         [NonSerialized] private GUIStyle guiStyle;

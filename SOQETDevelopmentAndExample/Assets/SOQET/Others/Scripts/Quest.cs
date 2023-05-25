@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace SOQET.Others
 {
-    public class Quest : ScriptableObject
+    public sealed class Quest : ScriptableObject
     {
         [SerializeField] private string text;
         public string Text 

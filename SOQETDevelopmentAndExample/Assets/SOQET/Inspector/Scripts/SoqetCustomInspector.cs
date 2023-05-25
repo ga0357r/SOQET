@@ -7,7 +7,7 @@ using SOQET.Debugging;
 namespace SOQET.Inspector
 {
     [CustomEditor(typeof(SoqetInspector))]
-    public class SoqetCustomInspector : UnityEditor.Editor
+    public sealed class SoqetCustomInspector : UnityEditor.Editor
     {
         private SoqetInspector storyManager;
         private Story story;

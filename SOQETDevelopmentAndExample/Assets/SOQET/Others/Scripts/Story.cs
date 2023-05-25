@@ -12,7 +12,7 @@ using UnityEditor;
 namespace SOQET.Others
 {
     [CreateAssetMenu(fileName = "New Story", menuName = "SOQET/Story")]
-    public class Story : ScriptableObject, ISerializationCallbackReceiver
+    public sealed class Story : ScriptableObject, ISerializationCallbackReceiver
     {
         [HideInInspector] [SerializeField] private List<Objective> objectives = new List<Objective>();
         [HideInInspector] [SerializeField] private List<Objective> removedObjectives = new List<Objective>();

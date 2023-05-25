@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using SOQET.Debugging;
 
-public class SoqetInspector : MonoBehaviour
+public sealed class SoqetInspector : MonoBehaviour
 {
     private static SoqetInspector instance;
     public static SoqetInspector Instance { get => instance; }
