@@ -11,11 +11,14 @@ namespace SOQET.Editor
     public sealed class SoqetEditor : EditorWindow
     {
         private static Story selectedStory;
+        private static bool shouldDrawRewards = false;
+
         [NonSerialized] private GUIStyle guiStyle;
         [NonSerialized] private Quest selectedQuest = null;
         [NonSerialized] private Objective selectedObjective = null;
         [NonSerialized] private Vector2 dragNodeOffset = Vector2.zero;
         [NonSerialized] private Quest deletedQuest = null;
+        [NonSerialized] private Reward deletedReward = null;
         [NonSerialized] private Objective deletedObjective = null;
         [SerializeField] private Vector2 scrollPosition;
         [NonSerialized] private bool isDraggingCanvas = false;
@@ -31,6 +34,7 @@ namespace SOQET.Editor
         public static bool OnOpenStoryAssetCallback(int instanceID, int line)
         {
             Story story = null;
+            shouldDrawRewards = false;
 
             try
             {
@@ -90,9 +94,19 @@ namespace SOQET.Editor
 
             else
             {
-                ProcessEvents();
-                DrawGraphics();
-                DeleteObjectivesAndQuests();
+                if (!shouldDrawRewards)
+                {
+                    ProcessEvents();
+                    DrawDefaultGraphics();
+                    DeleteObjectivesAndQuests();
+                }
+
+                else
+                {
+                    //Draw Reward Graphics
+                    DrawRewardGraphics();
+                    //Delete Rewards
+                }
             }
         }
 
@@ -112,7 +126,7 @@ namespace SOQET.Editor
             }
         }
 
-        private void DrawGraphics()
+        private void DrawDefaultGraphics()
         {
             AddObjectiveButton();
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
@@ -122,6 +136,20 @@ namespace SOQET.Editor
             DrawQuestConnections();
             DrawQuestNodes();
             EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawRewardGraphics()
+        {
+            //Add Exit Button
+            AddExitButton();
+            //Add Reward Button
+            AddRewardButton();
+            //Add Quest Name
+            AddSelectedObjectName();
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            DrawCanvas();
+            DrawRewardNodes();
+            EditorGUILayout.EndScrollView();   
         }
 
         private void DrawCanvas()
@@ -144,6 +172,14 @@ namespace SOQET.Editor
             }
         }
 
+        private void DeleteRewardButton(Reward rewardToDelete)
+        {
+            if (GUILayout.Button("Delete Reward"))
+            {
+                deletedReward = rewardToDelete;
+            }
+        }
+
         private void DeleteObjectiveButton(Objective objectiveToDelete)
         {
             if (GUILayout.Button("Delete Objective"))
@@ -157,6 +193,39 @@ namespace SOQET.Editor
             if (GUILayout.Button("Add Objective"))
             {
                 selectedStory.CreateObjective();
+            }
+        }
+        
+        private void AddExitButton()
+        {
+            if (GUILayout.Button("Exit"))
+            {
+                shouldDrawRewards = false;
+            }
+        }
+
+        private void AddRewardButton()
+        {
+            if (GUILayout.Button("Add Reward"))
+            {
+                //if quest is selected
+                if(IsQuestSelected())
+                {
+                    //add reward to quest
+                    selectedQuest.CreateReward();
+                }
+
+            }
+        }
+
+        private void AddSelectedObjectName()
+        {
+            if (Selection.activeObject)
+            {
+                if (IsQuestSelected())
+                {
+                    GUILayout.Label("Quest : " + Selection.activeObject.name);
+                }
             }
         }
 
@@ -230,11 +299,49 @@ namespace SOQET.Editor
         private void ProcessEvents()
         {
             HandleDragEvents();
+            HandleClickEvents();
         }
 
         private void HandleDragEvents()
         {
             DragObjectiveNodes();  
+        }
+
+        private void HandleClickEvents()
+        {
+            OpenRewardsScreen();
+            
+        }
+
+        private void OpenRewardsScreen()
+        {
+            
+            if (Event.current.type == EventType.MouseDown && Event.current.clickCount == 2)
+            {
+                if (Selection.activeObject == null)
+                {
+                    return;
+                }
+
+                if (IsQuestSelected())
+                {
+                    SOQET.Debugging.Debug.Log("Edit the Rewards here");
+                    SOQET.Debugging.Debug.Log($"Selected quest is {selectedQuest == Selection.activeObject}");
+                    SOQET.Debugging.Debug.Log($"Selected objective is {selectedObjective == Selection.activeObject}");
+                    //if the player double clicks a quest
+                    //clear the drawn ui
+                    shouldDrawRewards = true;
+                    Repaint();
+
+                    //draw a new ui to edit the rewards
+                }
+
+            }
+        }
+
+        private bool IsQuestSelected()
+        {
+            return Selection.activeObject == selectedQuest;
         }
 
         private void DragObjectiveNodes()
@@ -338,6 +445,21 @@ namespace SOQET.Editor
                     DeleteQuestButton(quest, objective);
                     GUILayout.EndArea();
                 }
+            }
+        }
+
+        private void DrawRewardNodes()
+        {
+            foreach (Reward reward in selectedQuest.GetRewards())
+            {
+                guiStyle.normal.background = (Texture2D)EditorGUIUtility.Load("node2");
+
+                GUILayout.BeginArea(reward.Rect, guiStyle);
+                if (string.IsNullOrEmpty(reward.Text)) EditorGUILayout.LabelField($"Reward {reward.Order}:", EditorStyles.boldLabel);
+                else EditorGUILayout.LabelField($"Reward {reward.Order}: " + reward.Text, EditorStyles.boldLabel);
+                reward.Text = EditorGUILayout.TextField(reward.Text);
+                DeleteRewardButton(reward);
+                GUILayout.EndArea();
             }
         }
 
