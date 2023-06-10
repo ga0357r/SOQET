@@ -178,7 +178,6 @@ namespace SOQET.Others
 
             Reward reward = MakeReward();
             AddReward(reward);
-            rewards.Add(reward);
 #endif
         }
 

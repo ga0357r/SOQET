@@ -16,6 +16,7 @@ namespace SOQET.Editor
         [NonSerialized] private GUIStyle guiStyle;
         [NonSerialized] private Quest selectedQuest = null;
         [NonSerialized] private Objective selectedObjective = null;
+        [NonSerialized] private Reward selectedReward = null;
         [NonSerialized] private Vector2 dragNodeOffset = Vector2.zero;
         [NonSerialized] private Quest deletedQuest = null;
         [NonSerialized] private Reward deletedReward = null;
@@ -34,7 +35,6 @@ namespace SOQET.Editor
         public static bool OnOpenStoryAssetCallback(int instanceID, int line)
         {
             Story story = null;
-            shouldDrawRewards = false;
 
             try
             {
@@ -67,6 +67,7 @@ namespace SOQET.Editor
         private void OnSelectionChanged()
         {
             Story story = null;
+            Reward reward = null;
             
             try
             {
@@ -74,15 +75,26 @@ namespace SOQET.Editor
             }
             catch (Exception)
             {
-                return;
+                //dont do anything
             }
-            
-            
+
             if(story)
             {
                 selectedStory = story;
                 Repaint();
+                return;
             }
+
+            try
+            {
+                //objective, quest or //reward
+                reward = (Reward)Selection.activeObject;
+            }
+            catch (Exception)
+            {
+                shouldDrawRewards = false;
+                return;
+            }            
         }
 
         private void OnGUI()
@@ -103,6 +115,8 @@ namespace SOQET.Editor
 
                 else
                 {
+                    //Process Drag Events
+                    DragRewardNodes();
                     //Draw Reward Graphics
                     DrawRewardGraphics();
                     //Delete Rewards
@@ -398,6 +412,50 @@ namespace SOQET.Editor
             }
         }
 
+        private void DragRewardNodes()
+        {
+            if (Event.current.type == EventType.MouseDown && selectedReward == null)
+            {
+                Vector2 selectedRewardPos = Event.current.mousePosition + scrollPosition;
+                
+                selectedReward = GetRewardNodeAtPoint(selectedRewardPos);
+                
+                if (selectedReward != null)
+                {
+                    
+                    dragNodeOffset = selectedReward.Rect.position - Event.current.mousePosition;
+                    Selection.activeObject = selectedReward;
+                }
+
+                else
+                {
+                    isDraggingCanvas = true;
+                    draggingCanvasOffset = Event.current.mousePosition + scrollPosition;
+                    Selection.activeObject = selectedQuest;
+                }
+            }
+            else if (Event.current.type == EventType.MouseUp && selectedReward != null)
+            {
+                selectedReward = null;
+            }
+            // else if (Event.current.type == EventType.MouseDrag && selectedReward != null)
+            // {
+            //     selectedReward.SetRectPosition(Event.current.mousePosition + dragNodeOffset);
+            //     GUI.changed = true;
+            // }
+
+            // else if (Event.current.type == EventType.MouseDrag && isDraggingCanvas)
+            // {
+            //     scrollPosition = draggingCanvasOffset - Event.current.mousePosition;
+            //     GUI.changed = true;
+            // }
+
+            // else if (Event.current.type == EventType.MouseUp && isDraggingCanvas)
+            // {
+            //     isDraggingCanvas = false;
+            // }
+        }
+
         private Quest GetQuestNodeAtPoint(Vector2 point)
         {
             if (selectedObjective == null)
@@ -420,6 +478,17 @@ namespace SOQET.Editor
                                 select objective;
 
             return selectedObjective.LastOrDefault();
+        }
+
+        private Reward GetRewardNodeAtPoint(Vector2 point)
+        {
+            if(!selectedQuest) return null;
+
+            var selectedReward = from reward in selectedQuest.GetRewards()
+                                where reward.Rect.Contains(point)
+                                select reward;
+
+            return selectedReward.LastOrDefault();
         }
 
         private void DrawQuestNodes()
