@@ -45,6 +45,15 @@ public sealed class SoqetInspector : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //load story data
+        if(currentStory.GetSoqetEditorSettings().SaveState)
+        {
+            currentStory.LoadSavedStory();
+        }
+    }
+
     public void OnApplicationQuit()
     {
         currentStory.OnApplicationQuit();

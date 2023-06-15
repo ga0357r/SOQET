@@ -329,21 +329,7 @@ namespace SOQET.Others
 
         public void OnApplicationQuit()
         {
-//#if UNITY_EDITOR
-            if (!soqetEditorSettings.SaveState)
-            {
-                SetAllObjectivesAndQuestsToDefault();
-                MarkAsIncomplete();
-            }
-
-//#else
-            if(soqetEditorSettings.SaveState)
-            {
-                //save with json utility
-                SaveAndLoad.SaveJson(this);
-            }
-
-//#endif
+            SaveStory();
         }
 
         private void SetAllObjectivesAndQuestsToDefault()
@@ -416,6 +402,25 @@ namespace SOQET.Others
             }
 
         }
+        
+        public void SaveStory()
+        {
+//#if UNITY_EDITOR
+            if (!soqetEditorSettings.SaveState)
+            {
+                SetAllObjectivesAndQuestsToDefault();
+                MarkAsIncomplete();
+            }
+
+//#else
+            if(soqetEditorSettings.SaveState)
+            {
+                //save with json utility
+                SaveAndLoad.SaveDefaultJson(this);
+            }
+
+//#endif
+        }
 
         public void LoadSavedStory()
         {
@@ -423,13 +428,43 @@ namespace SOQET.Others
             
             if(soqetEditorSettings.SaveState)
             {
-                savedStory = SaveAndLoad.Load();
+                SaveAndLoad.LoadDefaultJson(this);
 
                 if(savedStory)
                 {
                     
                 }
             }
+        }
+
+        public void SetIsStarted(bool isStarted)
+        {
+            this.isStarted = isStarted;
+        }
+
+        public void SetIsCompleted(bool isCompleted)
+        {
+            this.isCompleted = isCompleted;
+        }
+
+        public void SetCurrentObjective(int objective)
+        {
+            currentObjective = objective;
+        }
+
+        public bool GetIsStarted()
+        {
+            return isStarted;
+        }
+
+        public bool GetIsCompleted()
+        {
+            return isCompleted;
+        }
+
+        public int GetCurrentObjective()
+        {
+            return currentObjective;
         }
     }
 }
