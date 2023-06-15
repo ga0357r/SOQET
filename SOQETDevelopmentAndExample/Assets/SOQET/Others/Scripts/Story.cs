@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.Events;
 using SOQET.Editor;
 using SOQET.Debugging;
+using SOQET.DataPersistence;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -328,13 +329,21 @@ namespace SOQET.Others
 
         public void OnApplicationQuit()
         {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
                 SetAllObjectivesAndQuestsToDefault();
                 MarkAsIncomplete();
             }
-#endif
+
+//#else
+            if(soqetEditorSettings.SaveState)
+            {
+                //save with json utility
+                SaveAndLoad.SaveJson(this);
+            }
+
+//#endif
         }
 
         private void SetAllObjectivesAndQuestsToDefault()
@@ -406,6 +415,21 @@ namespace SOQET.Others
                 }
             }
 
+        }
+
+        public void LoadSavedStory()
+        {
+            Story savedStory = null;
+            
+            if(soqetEditorSettings.SaveState)
+            {
+                savedStory = SaveAndLoad.Load();
+
+                if(savedStory)
+                {
+                    
+                }
+            }
         }
     }
 }
