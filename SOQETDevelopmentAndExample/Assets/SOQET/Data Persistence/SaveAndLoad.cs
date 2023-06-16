@@ -56,18 +56,13 @@ namespace SOQET.DataPersistence
             }            
         }
 
-        private static Story CreateStoryData(string jsonObject)
-        {
-            return JsonUtility.FromJson<Story>(jsonObject);
-        }
-
         //Load
         public static void LoadDefaultJson(Story story)
         {
             Initialize();
-            Story storyData = null;
-            Objective objectiveData = null;
-            Quest questData = null;
+            Story storyData = ScriptableObject.CreateInstance<Story>();
+            Objective objectiveData = ScriptableObject.CreateInstance<Objective>();
+            Quest questData = ScriptableObject.CreateInstance<Quest>();
             string saveFile = "";
             string[] saveLines;
             List<string> jsonObjects = new List<string>();
@@ -86,11 +81,8 @@ namespace SOQET.DataPersistence
                     jsonObjects.Add(splitString[1]);
                 }
 
-                //Objective
-                //Quest
                 //Story
                 jsonObject = jsonObjects[0];
-                storyData = CreateStoryData(jsonObject);
                 JsonUtility.FromJsonOverwrite(jsonObject, storyData);
                 story.SetIsStarted(storyData.GetIsStarted());
                 story.SetIsCompleted(storyData.GetIsCompleted());
@@ -99,25 +91,33 @@ namespace SOQET.DataPersistence
                 //Objectives
                 foreach (Objective objective in story.GetObjectives())
                 {
+                    int currentObjectiveIndex = GetObjectiveIndex();
+                    jsonObject = jsonObjects[currentObjectiveIndex];
                     //Append to file
-                    string objectiveName = newLine + "Objective" + space + objective.Order + column
-                        + space + objective.Text + space + separator;
+                    // string objectiveName = newLine + "Objective" + space + objective.Order + column
+                    //     + space + objective.Text + space + separator;
 
-                    string objectiveJsonObject = objectiveName + JsonUtility.ToJson(objective);
-                    File.AppendAllText(savePath, objectiveJsonObject, Encoding.UTF8);
+                    // string objectiveJsonObject = objectiveName + JsonUtility.ToJson(objective);
+                    // File.AppendAllText(savePath, objectiveJsonObject, Encoding.UTF8);
 
-                    //Quests
-                    foreach (Quest quest in objective.GetQuests())
-                    {
-                        //Append to file
-                        string questName = newLine + "Quest" + space + quest.Order + column
-                            + space + quest.Text + space + separator;
+                    // //Quests
+                    // foreach (Quest quest in objective.GetQuests())
+                    // {
+                    //     //Append to file
+                    //     string questName = newLine + "Quest" + space + quest.Order + column
+                    //         + space + quest.Text + space + separator;
 
-                        string questJsonObject = questName + JsonUtility.ToJson(quest);
-                        File.AppendAllText(savePath, questJsonObject, Encoding.UTF8);
-                    }
+                    //     string questJsonObject = questName + JsonUtility.ToJson(quest);
+                    //     File.AppendAllText(savePath, questJsonObject, Encoding.UTF8);
+                    // }
                 }
             }
+        }
+
+        private static int GetObjectiveIndex()
+        {
+            int currentObjectiveIndex = 0;
+            return currentObjectiveIndex;
         }
     }
 }
