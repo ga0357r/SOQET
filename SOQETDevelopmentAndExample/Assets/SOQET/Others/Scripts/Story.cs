@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.Events;
 using SOQET.Editor;
 using SOQET.Debugging;
+using SOQET.DataPersistence;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -328,13 +329,7 @@ namespace SOQET.Others
 
         public void OnApplicationQuit()
         {
-#if UNITY_EDITOR
-            if (!soqetEditorSettings.SaveState)
-            {
-                SetAllObjectivesAndQuestsToDefault();
-                MarkAsIncomplete();
-            }
-#endif
+            SaveStory();
         }
 
         private void SetAllObjectivesAndQuestsToDefault()
@@ -397,6 +392,8 @@ namespace SOQET.Others
 
                 if (nextObjectiveExists)
                 {
+                    //start current quest
+                    GetCurrentObjectiveObject().StartCurrentQuest();
                     return;
                 }
 
@@ -406,6 +403,75 @@ namespace SOQET.Others
                 }
             }
 
+        }
+        
+        public void SaveStory()
+        {
+#if UNITY_EDITOR
+            if (!soqetEditorSettings.SaveState)
+            {
+                ResetStory();
+            }
+
+#else       
+            if(soqetEditorSettings.SaveState)
+            {
+                //save with json utility
+                SaveAndLoad.SaveDefaultJson(this);
+            }
+#endif
+        }
+
+        public void LoadSavedStory()
+        {
+            Story savedStory = null;
+            
+            if(soqetEditorSettings.SaveState)
+            {
+                SaveAndLoad.LoadDefaultJson(this);
+
+                if(savedStory)
+                {
+                    
+                }
+            }
+        }
+
+        public void SetIsStarted(bool isStarted)
+        {
+            this.isStarted = isStarted;
+        }
+
+        public void SetIsCompleted(bool isCompleted)
+        {
+            this.isCompleted = isCompleted;
+        }
+
+        public void SetCurrentObjective(int currentObjective)
+        {
+            this.currentObjective = currentObjective;
+        }
+
+        public bool GetIsStarted()
+        {
+            return isStarted;
+        }
+
+        public bool GetIsCompleted()
+        {
+            return isCompleted;
+        }
+
+        public int GetCurrentObjective()
+        {
+            return currentObjective;
+        }
+
+        [ContextMenu("Reset Story")]
+        public void ResetStory()
+        {
+            SetAllObjectivesAndQuestsToDefault();
+            MarkAsIncomplete();
         }
     }
 }
