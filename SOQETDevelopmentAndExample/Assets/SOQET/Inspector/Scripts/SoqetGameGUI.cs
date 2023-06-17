@@ -35,6 +35,11 @@ namespace SOQET.Inspector
         {
             GetCurrentObjectiveAndQuest();
             UpdateGUI();
+
+            if(soqetInspector.CurrentStory.GetIsCompleted())
+            {
+                EnableGameCompletionGUI();
+            }
         }
 
         private void Awake() 

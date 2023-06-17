@@ -408,8 +408,7 @@ namespace SOQET.Others
 #if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
-                SetAllObjectivesAndQuestsToDefault();
-                MarkAsIncomplete();
+                ResetStory();
             }
 
 #else       
@@ -464,6 +463,13 @@ namespace SOQET.Others
         public int GetCurrentObjective()
         {
             return currentObjective;
+        }
+
+        [ContextMenu("Reset Story")]
+        public void ResetStory()
+        {
+            SetAllObjectivesAndQuestsToDefault();
+            MarkAsIncomplete();
         }
     }
 }
