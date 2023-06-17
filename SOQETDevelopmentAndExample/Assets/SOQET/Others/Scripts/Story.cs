@@ -408,13 +408,13 @@ namespace SOQET.Others
         
         public void SaveStory()
         {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
                 ResetStory();
             }
 
-//#else       
+#else       
             if(soqetEditorSettings.SaveState)
             {
                 //save with json utility
@@ -425,7 +425,7 @@ namespace SOQET.Others
                     AESEncryption.EncryptFile(SaveAndLoad.GetSavePath());
                 }
             }
-//#endif
+#endif
         }
 
         public void LoadSavedStory()
