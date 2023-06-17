@@ -14,7 +14,9 @@ namespace SOQET.Editor
         [SerializeField] private bool saveState = false;
         [SerializeField] private bool enableDebug = SOQET.Debugging.Debug.EnableDebug;
         [SerializeField] private bool enableStory = true;
-
+        [SerializeField] private bool encryptSaveFile = false;
+        
+        public bool EncryptSaveFile => encryptSaveFile;
         public bool SaveState => saveState;
         public bool EnableDebug
         {
