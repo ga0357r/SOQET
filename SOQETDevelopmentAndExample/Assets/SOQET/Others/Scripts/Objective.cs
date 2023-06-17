@@ -402,5 +402,12 @@ namespace SOQET.Others
         {
             return currentQuest;
         }
+
+        public void StartCurrentQuest()
+        {
+            if(GetQuests().Count().Equals(0)) return;
+
+            GetCurrentQuestObject().StartQuest();
+        }
     }
 }

@@ -392,6 +392,8 @@ namespace SOQET.Others
 
                 if (nextObjectiveExists)
                 {
+                    //start current quest
+                    GetCurrentObjectiveObject().StartCurrentQuest();
                     return;
                 }
 
