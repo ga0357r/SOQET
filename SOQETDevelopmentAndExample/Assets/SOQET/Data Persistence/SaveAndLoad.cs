@@ -68,6 +68,7 @@ namespace SOQET.DataPersistence
             List<string> jsonObjects = new List<string>();
             string[] splitString;
             string jsonObject = "";
+            int jsonObjectIndex = 0;
 
             if (File.Exists(savePath))
             {
@@ -82,42 +83,34 @@ namespace SOQET.DataPersistence
                 }
 
                 //Story
-                jsonObject = jsonObjects[0];
+                jsonObject = jsonObjects[jsonObjectIndex];
                 JsonUtility.FromJsonOverwrite(jsonObject, storyData);
                 story.SetIsStarted(storyData.GetIsStarted());
                 story.SetIsCompleted(storyData.GetIsCompleted());
                 story.SetCurrentObjective(storyData.GetCurrentObjective());
+                jsonObjectIndex++;
 
                 //Objectives
                 foreach (Objective objective in story.GetObjectives())
                 {
-                    int currentObjectiveIndex = GetObjectiveIndex();
-                    jsonObject = jsonObjects[currentObjectiveIndex];
-                    //Append to file
-                    // string objectiveName = newLine + "Objective" + space + objective.Order + column
-                    //     + space + objective.Text + space + separator;
+                    jsonObject = jsonObjects[jsonObjectIndex];
+                    JsonUtility.FromJsonOverwrite(jsonObject,objectiveData);
+                    objective.IsStarted = objectiveData.IsStarted;
+                    objective.IsCompleted = objectiveData.IsCompleted;
+                    objective.SetCurrentQuest(objectiveData.GetCurrentQuest());
+                    jsonObjectIndex++;
 
-                    // string objectiveJsonObject = objectiveName + JsonUtility.ToJson(objective);
-                    // File.AppendAllText(savePath, objectiveJsonObject, Encoding.UTF8);
-
-                    // //Quests
-                    // foreach (Quest quest in objective.GetQuests())
-                    // {
-                    //     //Append to file
-                    //     string questName = newLine + "Quest" + space + quest.Order + column
-                    //         + space + quest.Text + space + separator;
-
-                    //     string questJsonObject = questName + JsonUtility.ToJson(quest);
-                    //     File.AppendAllText(savePath, questJsonObject, Encoding.UTF8);
-                    // }
+                    //Quests
+                    foreach (Quest quest in objective.GetQuests())
+                    {
+                        jsonObject = jsonObjects[jsonObjectIndex];
+                        JsonUtility.FromJsonOverwrite(jsonObject,questData);
+                        quest.IsStarted = questData.IsStarted;
+                        quest.IsCompleted = questData.IsCompleted;
+                        jsonObjectIndex++;
+                    }
                 }
             }
-        }
-
-        private static int GetObjectiveIndex()
-        {
-            int currentObjectiveIndex = 0;
-            return currentObjectiveIndex;
         }
     }
 }

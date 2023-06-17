@@ -405,21 +405,20 @@ namespace SOQET.Others
         
         public void SaveStory()
         {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
                 SetAllObjectivesAndQuestsToDefault();
                 MarkAsIncomplete();
             }
 
-//#else
+#else       
             if(soqetEditorSettings.SaveState)
             {
                 //save with json utility
                 SaveAndLoad.SaveDefaultJson(this);
             }
-
-//#endif
+#endif
         }
 
         public void LoadSavedStory()
@@ -447,9 +446,9 @@ namespace SOQET.Others
             this.isCompleted = isCompleted;
         }
 
-        public void SetCurrentObjective(int objective)
+        public void SetCurrentObjective(int currentObjective)
         {
-            currentObjective = objective;
+            this.currentObjective = currentObjective;
         }
 
         public bool GetIsStarted()

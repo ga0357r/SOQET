@@ -392,5 +392,15 @@ namespace SOQET.Others
             progress = (float) getCompletedQuests.Count()/(float) GetQuests().Count();
             return progress;
         }
+
+        public void SetCurrentQuest(int currentQuest)
+        {
+            this.currentQuest = currentQuest;
+        }
+
+        public int GetCurrentQuest()
+        {
+            return currentQuest;
+        }
     }
 }

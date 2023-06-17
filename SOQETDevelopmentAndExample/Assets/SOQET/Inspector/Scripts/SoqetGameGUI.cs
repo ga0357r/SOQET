@@ -23,13 +23,18 @@ namespace SOQET.Inspector
             //subcribe to any story event here
             UpdateGUICallback = ()=>
             {
-                GetCurrentObjectiveAndQuest();
-                UpdateGUI();
+                UpdateProgressGUI();
             };
 
             soqetInspector.SubscribeToAllStoryEvents(UpdateGUICallback);
             soqetInspector.SubscribeToAllObjectivesOnCompleteEvents(ResetKeyPressCounter);
             soqetInspector.SubscribeToOnStoryCompletedEvent(EnableGameCompletionGUI);
+        }
+
+        private void UpdateProgressGUI()
+        {
+            GetCurrentObjectiveAndQuest();
+            UpdateGUI();
         }
 
         private void Awake() 
@@ -38,6 +43,11 @@ namespace SOQET.Inspector
             {
                 soqetInspector = FindObjectOfType<SoqetInspector>();
             }
+        }
+
+        private void Start() 
+        {
+            UpdateProgressGUI();
         }
 
         private void OnDisable() 
