@@ -15,4 +15,4 @@ I appreciate your interest in contributing to this project. However, I am not cu
 SOQET is free to use, but it is not open source. You are free to use the framework in your own projects, but you may not modify, sell, or distribute the code.
 
 
-SOQET is currently still in development. As of 25/04/2023,  all that remains is documentation before it is released on the Unity Asset Store.
+SOQET is complete. As of 17/06/2023, all that remains is documentation before it is released on the Unity Asset Store.
