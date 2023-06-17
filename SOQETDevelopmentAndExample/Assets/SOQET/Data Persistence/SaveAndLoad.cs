@@ -16,10 +16,16 @@ namespace SOQET.DataPersistence
         private const string fileName = "StoryData.txt";
         private static string savePath = "";
         
+        
 
         private static void Initialize()
         {
             savePath = Application.persistentDataPath + "/" +  fileName;
+        }
+
+        public static string GetSavePath()
+        {
+            return Application.persistentDataPath + "/" +  fileName;
         }
 
         //Save
@@ -53,7 +59,7 @@ namespace SOQET.DataPersistence
                     string questJsonObject = questName + JsonUtility.ToJson(quest);
                     File.AppendAllText(savePath, questJsonObject, Encoding.UTF8);
                 }
-            }            
+            }       
         }
 
         //Load

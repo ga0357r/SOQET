@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using SOQET.Editor;
 using SOQET.Debugging;
 using SOQET.DataPersistence;
+using SOQET.Security;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -407,32 +408,42 @@ namespace SOQET.Others
         
         public void SaveStory()
         {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
             if (!soqetEditorSettings.SaveState)
             {
                 ResetStory();
             }
 
-#else       
+//#else       
             if(soqetEditorSettings.SaveState)
             {
                 //save with json utility
                 SaveAndLoad.SaveDefaultJson(this);
+
+                if(soqetEditorSettings.EncryptSaveFile)
+                {
+                    AESEncryption.EncryptFile(SaveAndLoad.GetSavePath());
+                }
             }
-#endif
+//#endif
         }
 
         public void LoadSavedStory()
-        {
-            Story savedStory = null;
-            
+        {   
             if(soqetEditorSettings.SaveState)
             {
+                //Decrypt Save File
+                if(soqetEditorSettings.EncryptSaveFile)
+                {
+                    AESEncryption.DecryptFile(SaveAndLoad.GetSavePath());
+                }
+                
                 SaveAndLoad.LoadDefaultJson(this);
 
-                if(savedStory)
+                //encrypt after loading
+                if(soqetEditorSettings.EncryptSaveFile)
                 {
-                    
+                    AESEncryption.EncryptFile(SaveAndLoad.GetSavePath());
                 }
             }
         }
