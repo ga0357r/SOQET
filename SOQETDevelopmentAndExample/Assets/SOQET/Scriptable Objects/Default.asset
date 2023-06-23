@@ -285,9 +285,10 @@ MonoBehaviour:
   isStarted: 0
   isCompleted: 0
   soqetEditorSettings:
-    saveState: 0
+    saveState: 1
     enableDebug: 1
     enableStory: 1
+    encryptSaveFile: 0
   OnStartStory:
     m_PersistentCalls:
       m_Calls: []
