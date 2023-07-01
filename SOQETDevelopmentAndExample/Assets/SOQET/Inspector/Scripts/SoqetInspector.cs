@@ -194,6 +194,59 @@ public sealed class SoqetInspector : MonoBehaviour
         }
     }
 
+    public void SubscribeToQuestOnStartEvent(string objectiveName, string questName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            Quest quest = objective.GetQuest(questName);
+
+            if (quest)
+            {
+                quest.OnStartQuest.AddListener(call);
+                SOQET.Debugging.Debug.Log($"Subscribed to {questName} quest OnStartQuest event");
+            }
+
+            else
+            {
+                SOQET.Debugging.Debug.LogError($"{questName} quest not found");
+            }
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+    public void UnsubscribeFromQuestOnStartEvent(string objectiveName, string questName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            Quest quest = objective.GetQuest(questName);
+
+            if (quest)
+            {
+                quest.OnStartQuest.RemoveListener(call);
+                SOQET.Debugging.Debug.Log($"Unsubscribed from {questName} quest OnStartQuest event");
+            }
+
+            else
+            {
+                SOQET.Debugging.Debug.LogError($"{questName} quest not found");
+            }
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+
     public void SubscribeToObjectiveOnCompleteEvent(string objectiveName, UnityAction call)
     {
         Objective objective = CurrentStory.GetObjective(objectiveName);
@@ -218,6 +271,38 @@ public sealed class SoqetInspector : MonoBehaviour
         {
             objective.OnObjectiveCompleted.RemoveListener(call);
             SOQET.Debugging.Debug.Log($"Unsubscribed from {objectiveName} objective OnObjectiveCompleted event");
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+    public void SubscribeToObjectiveOnStartEvent(string objectiveName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            objective.OnStartObjective.AddListener(call);
+            SOQET.Debugging.Debug.Log($"Subscribed to {objectiveName} objective OnStartObjective event");
+        }
+
+        else
+        {
+            SOQET.Debugging.Debug.LogError($"{objectiveName} objective not found");
+        }
+    }
+
+    public void UnsubscribeFromObjectiveOnStartEvent(string objectiveName, UnityAction call)
+    {
+        Objective objective = CurrentStory.GetObjective(objectiveName);
+
+        if (objective)
+        {
+            objective.OnStartObjective.RemoveListener(call);
+            SOQET.Debugging.Debug.Log($"Unsubscribed from {objectiveName} objective OnStartObjective event");
         }
 
         else
