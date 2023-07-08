@@ -21,7 +21,7 @@ namespace SOQET.Editor
         [NonSerialized] private bool isDraggingCanvas = false;
         [NonSerialized] private Vector2 draggingCanvasOffset = Vector2.zero;
 
-        [MenuItem("SOQET/Editor Window")]        
+        [MenuItem("Window/SOQET/Editor Window")]        
         public static void DisplayStoryEditorWindow()
         {
             GetWindow(typeof(SoqetEditor), false, "Soqet Editor");

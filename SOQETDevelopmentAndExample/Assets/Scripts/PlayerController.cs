@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private SoqetInspector soqetInspector;
+    [SerializeField] private SOQET.Inspector.SoqetInspector soqetInspector;
     private bool horizontalCompleted = false;
     private bool verticalCompleted = false;
     private bool movementTutorialCompleted = false;
