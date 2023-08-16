@@ -8,6 +8,9 @@ using SOQET.Others;
 
 namespace SOQET.Editor
 {
+    /// <summary>
+    /// Manipulate stories in SOQET Editor Window
+    /// </summary>
     public sealed class SoqetEditor : EditorWindow
     {
         private static Story selectedStory;
@@ -27,6 +30,12 @@ namespace SOQET.Editor
             GetWindow(typeof(SoqetEditor), false, "Soqet Editor");
         }
 
+        /// <summary>
+        /// Open only story scriptable objects in the editor window 
+        /// </summary>
+        /// <param name="instanceID"></param>
+        /// <param name="line"></param>
+        /// <returns>true or false</returns>
         [OnOpenAsset(1)]
         public static bool OnOpenStoryAssetCallback(int instanceID, int line)
         {
@@ -112,6 +121,9 @@ namespace SOQET.Editor
             }
         }
 
+        /// <summary>
+        /// Draw all Nodes, connections, and buttons when a story is opened in the editor
+        /// </summary>
         private void DrawGraphics()
         {
             AddObjectiveButton();
@@ -227,6 +239,9 @@ namespace SOQET.Editor
             }
         }
 
+        /// <summary>
+        /// Handle All Events. Dragging & Clicking events 
+        /// </summary>
         private void ProcessEvents()
         {
             HandleDragEvents();

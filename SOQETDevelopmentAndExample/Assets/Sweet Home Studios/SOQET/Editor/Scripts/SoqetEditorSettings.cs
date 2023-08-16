@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace SOQET.Editor
 {
+    /// <summary>
+    /// SOQET Editor Settings 
+    /// </summary>
     [Serializable]
     public sealed class SoqetEditorSettings
     {
@@ -11,9 +14,24 @@ namespace SOQET.Editor
         public const float backgroundSize = 50;
 #endif
 
+        /// <summary>
+        /// Toggle Saving On/Off
+        /// </summary>
         [SerializeField] private bool saveState = false;
+
+        /// <summary>
+        /// Toggle Debug On/Off
+        /// </summary>
         [SerializeField] private bool enableDebug = SOQET.Debugging.Debug.EnableDebug;
+
+        /// <summary>
+        /// Toggle SOQET On/Off
+        /// </summary>
         [SerializeField] private bool enableStory = true;
+
+        /// <summary>
+        /// Toggle Save Encyption On/Off
+        /// </summary>
         [SerializeField] private bool encryptSaveFile = false;
         
         public bool EncryptSaveFile => encryptSaveFile;
