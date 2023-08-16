@@ -6,66 +6,84 @@ using System.Collections.Generic;
 
 namespace SOQET.DataPersistence
 {
+    /// <summary>
+    /// Save And Load Story Data Using JSON
+    /// </summary>
     public static class SaveAndLoad
     {
-        private const char newLine = '\n';
-        private const char separator = '*';
-        private const char space = ' ';
-        private const char hyphen = '-';
-        private const char column = ':';
+        /// <summary>
+        /// Default Save File Name
+        /// </summary>
         private const string fileName = "StoryData.txt";
+
+        /// <summary>
+        /// Save Path
+        /// </summary>
         private static string savePath = "";
         
-        
-
         private static void Initialize()
         {
             savePath = Application.persistentDataPath + "/" +  fileName;
         }
 
+        /// <summary>
+        /// Get Platform Persistent Path
+        /// </summary>
+        /// <returns>Platform Persistent Path</returns>
         public static string GetSavePath()
         {
             return Application.persistentDataPath + "/" +  fileName;
         }
 
-        //Save
+        /// <summary>
+        /// Save Story Data using JSON
+        /// </summary>
+        /// <param name="story"> Story Data</param>
         public static void SaveDefaultJson(in Story story)
         {
-            if(!story) return;
+            if (!story) return;
             Initialize();
-            
+            char newLine = '\n';
+            char separator = '*';
+            char space = ' ';
+            char column = ':';
+
             //Story
             string storyname = story.name + space + "Story" + space + separator;
             string storyJsonObject = storyname + JsonUtility.ToJson(story);
             File.WriteAllText(savePath, storyJsonObject, Encoding.UTF8);
 
             //Objectives
-            foreach(Objective objective in story.GetObjectives())
+            foreach (Objective objective in story.GetObjectives())
             {
                 //Append to file
-                string objectiveName = newLine + "Objective" + space + objective.Order + column 
+                string objectiveName = newLine + "Objective" + space + objective.Order + column
                     + space + objective.Text + space + separator;
-                
+
                 string objectiveJsonObject = objectiveName + JsonUtility.ToJson(objective);
                 File.AppendAllText(savePath, objectiveJsonObject, Encoding.UTF8);
 
                 //Quests
-                foreach(Quest quest in objective.GetQuests())
+                foreach (Quest quest in objective.GetQuests())
                 {
                     //Append to file
-                    string questName = newLine + "Quest" + space + quest.Order + column 
+                    string questName = newLine + "Quest" + space + quest.Order + column
                         + space + quest.Text + space + separator;
-                
+
                     string questJsonObject = questName + JsonUtility.ToJson(quest);
                     File.AppendAllText(savePath, questJsonObject, Encoding.UTF8);
                 }
-            }       
+            }
         }
 
-        //Load
+        /// <summary>
+        /// Load Story Data
+        /// </summary>
+        /// <param name="story"> Story Data</param>
         public static void LoadDefaultJson(Story story)
         {
             Initialize();
+            char separator = '*';
             Story storyData = ScriptableObject.CreateInstance<Story>();
             Objective objectiveData = ScriptableObject.CreateInstance<Objective>();
             Quest questData = ScriptableObject.CreateInstance<Quest>();
