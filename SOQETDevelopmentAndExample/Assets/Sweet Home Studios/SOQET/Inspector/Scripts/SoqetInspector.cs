@@ -5,6 +5,9 @@ using SOQET.Debugging;
 
 namespace SOQET.Inspector
 {
+    /// <summary>
+    /// SOQET Inspector. Only 1 per scene
+    /// </summary>
     public sealed class SoqetInspector : MonoBehaviour
     {
         private static SoqetInspector instance;
@@ -13,6 +16,9 @@ namespace SOQET.Inspector
         #region Stories
 
         #region Fields
+        /// <summary>
+        /// Current Story to complete
+        /// </summary>
         [SerializeField] private Story currentStory;
         #endregion
 
@@ -61,6 +67,11 @@ namespace SOQET.Inspector
             currentStory.OnApplicationQuit();
         }
 
+        /// <summary>
+        /// Complete Player Quest. All subscribers are notified
+        /// </summary>
+        /// <param name="objectiveName"> </param>
+        /// <param name="questName"></param>
         public void CompletePlayerQuest(string objectiveName, string questName)
         {
             Objective objective = CurrentStory.GetObjective(objectiveName);

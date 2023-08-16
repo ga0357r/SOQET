@@ -7,8 +7,14 @@ using UnityEngine.Events;
 
 namespace SOQET.Inspector
 {
+    /// <summary>
+    /// SOQET Game GUI
+    /// </summary>
     public sealed class SoqetGameGUI : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to SOQET Inspector
+        /// </summary>
         private SoqetInspector soqetInspector;
         [SerializeField] private TextMeshProUGUI currentObjectiveText,currentQuestText,gameCompletionText;
         [SerializeField] private Slider currentObjectiveProgressSlider;
@@ -16,6 +22,10 @@ namespace SOQET.Inspector
         private Objective currentObjective;
         private Quest currentQuest;
         [SerializeField] private int keyPressCounter = 1;
+
+        /// <summary>
+        /// Event that updates the GUI after every quest/objective/story is complete
+        /// </summary>
         private UnityAction UpdateGUICallback;
 
         private void OnEnable()

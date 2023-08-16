@@ -6,6 +6,9 @@ using SOQET.Debugging;
 
 namespace SOQET.Inspector
 {
+    /// <summary>
+    /// Custom Inspector for SOQET
+    /// </summary>
     [CustomEditor(typeof(SoqetInspector))]
     public sealed class SoqetCustomInspector : UnityEditor.Editor
     {
@@ -21,6 +24,9 @@ namespace SOQET.Inspector
             SOQET.Debugging.Debug.Log("On Enable");
         }
 
+        /// <summary>
+        /// Displays Current Story Information
+        /// </summary>
         public override void OnInspectorGUI()
         {
             EditorGUI.BeginChangeCheck();
