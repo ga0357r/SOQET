@@ -10,6 +10,9 @@ namespace SOQET.Others
 {
     public sealed class Quest : ScriptableObject
     {
+        /// <summary>
+        /// Quest name
+        /// </summary>
         [SerializeField] private string text;
         public string Text 
         {
@@ -31,15 +34,24 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Unique Identifier
+        /// </summary>
         [HideInInspector] [SerializeField] private string id;
         public string ID { get => id; }
 
         [HideInInspector] [SerializeField] private string order;
         public string Order { get => order; set => order = value; }
 
+        /// <summary>
+        /// Is quest started?
+        /// </summary>
         [SerializeField] private bool isStarted;
         public bool IsStarted { get => isStarted; set => isStarted = value; }
 
+        // <summary>
+        /// Is quest completed?
+        /// </summary>
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
@@ -77,11 +89,18 @@ namespace SOQET.Others
             name = newName;
         }
 
+        /// <summary>
+        /// Generate Unique Identifier
+        /// </summary>
+        /// <returns></returns>
         private string GenerateID()
         {
             return Guid.NewGuid().ToString();
         }
 
+        /// <summary>
+        /// Start Quest. Invokes OnStartQuestEvent here 
+        /// </summary>
         public void StartQuest()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -100,6 +119,9 @@ namespace SOQET.Others
             OnStartQuest?.Invoke();
         }
 
+        /// <summary>
+        /// Complete Quest. Invokes OnCompleteQuestEvent here 
+        /// </summary>
         public void CompleteQuest()
         {
             if(!SoqetEditorSettings.EnableStory)

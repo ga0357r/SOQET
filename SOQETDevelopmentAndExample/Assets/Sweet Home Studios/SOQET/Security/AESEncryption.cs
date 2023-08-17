@@ -4,10 +4,20 @@ using System.Security.Cryptography;
 
 namespace SOQET.Security
 {
+    /// <summary>
+    /// Uses AES to decrypt and encrypt save files
+    /// </summary>
     public static class AESEncryption
     {
-        private static readonly byte[] Key = new byte[32]; // 256-bit key
-        private static readonly byte[] IV = new byte[16]; // 128-bit IV
+        /// <summary>
+        /// encryption key
+        /// </summary>
+        private static readonly byte[] Key = new byte[32];
+
+        /// <summary>
+        /// initialization vector
+        /// </summary>
+        private static readonly byte[] IV = new byte[16];
 
         public static void EncryptFile(string filePath)
         {

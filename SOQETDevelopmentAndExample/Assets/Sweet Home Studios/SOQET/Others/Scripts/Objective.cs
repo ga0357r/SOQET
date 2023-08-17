@@ -10,8 +10,14 @@ using UnityEditor;
 
 namespace SOQET.Others
 {
+    /// <summary>
+    /// Objective Scriptable Object
+    /// </summary>
     public sealed class Objective : ScriptableObject, ISerializationCallbackReceiver
     {
+        /// <summary>
+        /// Objective name
+        /// </summary>
         [SerializeField] private string text;
 
         public string Text
@@ -34,6 +40,9 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Quests to complete 
+        /// </summary>
         [HideInInspector] [SerializeField] private List<Quest> quests = new List<Quest>();
         public List<Quest> Quests
         {
@@ -42,6 +51,9 @@ namespace SOQET.Others
             set => quests = value;
         }
 
+        /// <summary>
+        /// Deleted Quests
+        /// </summary>
         [HideInInspector] [SerializeField] private List<Quest> removedQuests = new List<Quest>();
         public List<Quest> RemovedQuests
         {
@@ -50,21 +62,33 @@ namespace SOQET.Others
             set => removedQuests = value;
         }
 
+        /// <summary>
+        /// Unique Identifier
+        /// </summary>
         [HideInInspector] [SerializeField] private string id;
         public string ID { get => id; }
 
         [HideInInspector] [SerializeField] private string order;
         public string Order { get => order; set => order = value; }
 
+        /// <summary>
+        /// Is objective started?
+        /// </summary>
         [SerializeField] private bool isStarted;
         public bool IsStarted { get => isStarted; set => isStarted = value; }
 
+        /// <summary>
+        /// Is objective completed?
+        /// </summary>
         [SerializeField] private bool isCompleted;
         public bool IsCompleted { get => isCompleted; set => isCompleted = value; }
 
         [HideInInspector] [SerializeField] private string nextObjective;
         public string NextObjective { get => nextObjective; set => nextObjective = value; }
 
+        /// <summary>
+        /// Current quest
+        /// </summary>
         [HideInInspector] [SerializeField] private int currentQuest;
         [HideInInspector] [SerializeField] private int defaultQuest;
 
@@ -95,11 +119,18 @@ namespace SOQET.Others
             name = newName;
         }
 
+        /// <summary>
+        /// Generate Unique Identifier
+        /// </summary>
+        /// <returns></returns>
         private string GenerateID()
         {
             return Guid.NewGuid().ToString();
         }
 
+        /// <summary>
+        /// Create quest in Editor Window
+        /// </summary>
         public void CreateQuest()
         {
             #if UNITY_EDITOR
@@ -126,6 +157,9 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Delete quest in Editor Window
+        /// </summary>
         public void DeleteQuest(Quest questToDelete)
         {
             #if UNITY_EDITOR
@@ -244,6 +278,9 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Start Objective. Invokes OnStartObjectiveEvent here 
+        /// </summary>
         public void StartObjective()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -263,7 +300,9 @@ namespace SOQET.Others
             OnStartObjective?.Invoke();   
         }
 
-
+        /// <summary>
+        /// Complete Objective. Invokes OnCompleteObjectiveEvent here 
+        /// </summary>
         public void CompleteObjective()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -348,6 +387,10 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Start next quest automatically called during SOQET Event Tick 
+        /// </summary>
+        /// <returns></returns>
         public bool StartNextQuest()
         {
             Quest currentQuestObject = GetCurrentQuestObject();

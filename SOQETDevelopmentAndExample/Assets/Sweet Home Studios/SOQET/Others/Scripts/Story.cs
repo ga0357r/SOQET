@@ -13,15 +13,34 @@ using UnityEditor;
 
 namespace SOQET.Others
 {
+    /// <summary>
+    /// Story Scriptable Object. Can be created in Project Window
+    /// </summary>
     [CreateAssetMenu(fileName = "New Story", menuName = "SOQET/Story")]
     public sealed class Story : ScriptableObject, ISerializationCallbackReceiver
     {
+        /// <summary>
+        /// Objectives to complete 
+        /// </summary>
         [HideInInspector] [SerializeField] private List<Objective> objectives = new List<Objective>();
+
+        /// <summary>
+        /// Deleted objectives
+        /// </summary>
         [HideInInspector] [SerializeField] private List<Objective> removedObjectives = new List<Objective>();
         [HideInInspector] [SerializeField] private int currentObjective;
         [HideInInspector] [SerializeField] private int defaultObjective;
+
+        /// <summary>
+        /// Is story started?
+        /// </summary>
         [SerializeField] private bool isStarted;
+
+        /// <summary>
+        /// Is story completed?
+        /// </summary>
         [SerializeField] private bool isCompleted;
+
         [SerializeField] private SoqetEditorSettings soqetEditorSettings = new SoqetEditorSettings();
         public UnityEvent OnStartStory = new UnityEvent();
         public UnityEvent OnStoryCompleted = new UnityEvent();
@@ -45,6 +64,9 @@ namespace SOQET.Others
             currentObjective = defaultObjective;
         }
 
+        /// <summary>
+        /// Create objective in Editor Window
+        /// </summary>
         public void CreateObjective()
         {
 #if UNITY_EDITOR
@@ -73,6 +95,9 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// Delete objective in Editor Window
+        /// </summary>
         public void DeleteObjective(Objective objectiveToDelete)
         {
 #if UNITY_EDITOR
@@ -263,6 +288,9 @@ namespace SOQET.Others
             return true;
         }
 
+        /// <summary>
+        /// Start Story. Invokes OnStartOStoryEvent here 
+        /// </summary>
         private void StartStory()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -284,7 +312,9 @@ namespace SOQET.Others
             currentObjectiveObject.GetCurrentQuestObject().StartQuest();
         }
 
-
+        /// <summary>
+        /// Complete Story. Invokes OnCompleteStoryEvent here 
+        /// </summary>
         private void CompleteStory()
         {
             if(!SoqetEditorSettings.EnableStory)
@@ -360,6 +390,7 @@ namespace SOQET.Others
             }
         }
 
+        //Automatically Handle all Event Completion. 
         private void HandleAllEventCompletions()
         {
             var objectives = GetObjectives();
@@ -377,6 +408,10 @@ namespace SOQET.Others
             }
         }
 
+        /// <summary>
+        /// SOQET Event Tick Method. Called after each quest is completed
+        /// </summary>
+        /// <param name="objective"></param>
         private void EventTick(Objective objective)
         {
             bool nextQuestExists = objective.StartNextQuest();
@@ -406,6 +441,9 @@ namespace SOQET.Others
 
         }
         
+        /// <summary>
+        /// Save Story Data. Encrypted/Unencrypted
+        /// </summary>
         public void SaveStory()
         {
 #if UNITY_EDITOR
@@ -428,6 +466,9 @@ namespace SOQET.Others
 #endif
         }
 
+        /// <summary>
+        /// Load Saved Story. Automatically called on Start
+        /// </summary>
         public void LoadSavedStory()
         {   
             if(soqetEditorSettings.SaveState)
@@ -478,6 +519,9 @@ namespace SOQET.Others
             return currentObjective;
         }
 
+        /// <summary>
+        /// Reset the story to default. Can be called from inspector by right-clicking-> ResetStory.
+        /// </summary>
         [ContextMenu("Reset Story")]
         public void ResetStory()
         {
