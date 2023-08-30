@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92de8d2a42d43d34ca3989ff27facc36, type: 3}
-  m_Name: Collect the Red Coint
+  m_Name: Collect the Red Coin
   m_EditorClassIdentifier: 
-  text: Collect the Red Coint
+  text: Collect the Red Coin
   id: 8403e28d-1872-42a3-9026-bfdadba6ed09
   order: 1
   isStarted: 0

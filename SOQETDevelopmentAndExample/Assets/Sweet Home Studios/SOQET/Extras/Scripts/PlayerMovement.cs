@@ -20,14 +20,15 @@ public class PlayerMovement : MonoBehaviour {
     private bool movementTutorialCompleted = false;
 
     //reference variable
-    private CharacterController _charController;
-    private MouseLook mouseLook;
+    [SerializeField] private CharacterController _charController;
+    [SerializeField] private MouseLook mouseLookX;
+    [SerializeField] private MouseLook mouseLookY;
     [SerializeField] private SOQET.Inspector.SoqetInspector soqetInspector;
 
     private void OnEnable()
     {
         //subscribe to the Press the directional keys to move "On Start Event"
-        soqetInspector.SubscribeToQuestOnStartEvent("Complete the Tutorial", "Press the directional keys to move", DisableMouseLook);
+        soqetInspector.SubscribeToQuestOnStartEvent("Complete the Tutorial", "Press the directional keys to move", OnStartMoveTutorial);
 
         //subscribe to the Press the directional keys to move "On Complete Event"
         soqetInspector.SubscribeToQuestOnCompleteEvent("Complete the Tutorial", "Press the directional keys to move", OnCompleteMoveTutorial);
@@ -41,26 +42,26 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCompleteMoveTutorial()
     {
-        //On Complete Move Tutorial do something
-        Debug.Log("Completed Tutorial");
+        SOQET.Debugging.Debug.Log("On Complete Move Tutorial");
+        EnableMouseLook();
+    }
 
-        //Anything you want can be here
-        //Save game data
-        //give player an achievement
-        //gift player an item
+    private void OnStartMoveTutorial()
+    {
+        SOQET.Debugging.Debug.Log("On Start Move Tutorial");
+        DisableMouseLook();
     }
 
     private void DisableMouseLook()
     {
-        //Prevent mouse look
-        Debug.Log("Completed Tutorial");
-        mouseLook.Deactivate();
+        mouseLookX.Deactivate();
+        mouseLookY.Deactivate();
     }
 
-    void Start()
+    private void EnableMouseLook()
     {
-        _charController = GetComponent<CharacterController>();
-        mouseLook = GetComponent<MouseLook>();
+        mouseLookX.Activate();
+        mouseLookY.Activate();
     }
 
 	void FixedUpdate()
@@ -84,15 +85,9 @@ public class PlayerMovement : MonoBehaviour {
         _charController.Move(movement);
 
         //complete tutorial
-        if (moveHorizontal > 0f)
-        {
-            horizontalCompleted = true;
-        }
-
-        if (moveVertical > 0f)
-        {
-            verticalCompleted = true;
-        }
+        horizontalCompleted = moveHorizontal > 0f || moveHorizontal < 0f;
+        verticalCompleted = moveVertical > 0f || moveVertical < 0f;
+        
 
         if (!movementTutorialCompleted && horizontalCompleted && verticalCompleted)
         {

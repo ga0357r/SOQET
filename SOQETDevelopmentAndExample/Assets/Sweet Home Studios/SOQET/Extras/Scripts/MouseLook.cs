@@ -1,12 +1,15 @@
-﻿using System;
+﻿using SOQET.Inspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    public bool HasLookedAround { get; private set; }
+    public bool MouseLookTutorialComplete { get; private set; }
 
-     void Start()
+    void Start()
     {
         Rigidbody body = GetComponent<Rigidbody>();
         if (body != null)
@@ -65,6 +68,15 @@ public class MouseLook : MonoBehaviour
             float rotationY = transform.localEulerAngles.y;
             transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
         }
+
+        HasLookedAround = Input.GetAxis("Mouse Y") > 0 || Input.GetAxis("Mouse Y") < 0 || Input.GetAxis("Mouse X") > 0 || Input.GetAxis("Mouse X") < 0;
+
+        //complete Move the mouse to look around quest
+        if (!MouseLookTutorialComplete && HasLookedAround)
+        {
+            MouseLookTutorialComplete = true;
+            SoqetInspector.Instance.CompletePlayerQuest("Complete the Tutorial", "Move the mouse to look around");
+        }
     }
 
     public void Deactivate()
@@ -75,6 +87,6 @@ public class MouseLook : MonoBehaviour
 
     public void Activate()
     {
-        enabled = false;
+        enabled = true;
     }
 }
