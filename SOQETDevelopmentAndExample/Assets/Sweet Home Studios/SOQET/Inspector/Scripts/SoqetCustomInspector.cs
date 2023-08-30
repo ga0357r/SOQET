@@ -19,6 +19,7 @@ namespace SOQET.Inspector
         private void OnEnable()
         {
             storyManager = (SoqetInspector)target;
+            if (serializedObject == null) return;
             storySerializedProperty = serializedObject.FindProperty("currentStory");
             story = storyManager.CurrentStory;
             SOQET.Debugging.Debug.Log("On Enable");
@@ -30,6 +31,8 @@ namespace SOQET.Inspector
         public override void OnInspectorGUI()
         {
             EditorGUI.BeginChangeCheck();
+
+            if (storySerializedProperty == null) return;
 
             EditorGUILayout.PropertyField
             (
