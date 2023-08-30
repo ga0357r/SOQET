@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
     {
         //unsubscribe from the Press the directional keys to move quest to prevent memory leaks
         soqetInspector.UnsubscribeFromQuestOnCompleteEvent("Complete the Tutorial", "Press the directional keys to move", OnCompleteMoveTutorial);
+
+        soqetInspector.UnsubscribeFromQuestOnStartEvent("Complete the Tutorial", "Press the directional keys to move", OnStartMoveTutorial);
     }
 
     private void OnCompleteMoveTutorial()

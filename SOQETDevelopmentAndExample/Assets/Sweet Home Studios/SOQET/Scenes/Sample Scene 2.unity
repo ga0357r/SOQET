@@ -237,12 +237,32 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1519128264243659544, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -101
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519128264260709953, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39
+      objectReference: {fileID: 0}
     - target: {fileID: 1519128264310879054, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1519128265537209078, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -161
+      objectReference: {fileID: 0}
     - target: {fileID: 1519128265548765966, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519128265620006626, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -161
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519128265653260930, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_MatchWidthOrHeight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1519128265946724272, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
@@ -291,6 +311,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1519128265946724273, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5050246016792122024, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -248
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933755301467101902, guid: 9f2ff2a85cf1ae346996a0895fda8d63, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -375,7 +403,7 @@ GameObject:
   m_Layer: 0
   m_Name: Red Coin Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -387,7 +415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335975542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.86, y: 0, z: -5.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -500,7 +528,7 @@ GameObject:
   m_Layer: 0
   m_Name: Green Coin Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -512,7 +540,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098349754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.62, y: 0, z: 4.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,7 +570,7 @@ GameObject:
   m_Layer: 0
   m_Name: Yellow Coin Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -554,7 +582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632205232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.15, y: 0, z: 5.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -620,8 +648,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 844984118845090561, guid: 6655ba8f22c814c40a00ac58be3e4216, type: 3}
+  - {fileID: 2355086649417104294, guid: 3594a4e13c796564083c5ec40f9c5e08, type: 3}
+  - {fileID: 7353637960394989717, guid: 327220eb577c13741aa3ee43ea9e8147, type: 3}
   spawnPoint:
   - {fileID: 335975543}
   - {fileID: 1632205233}

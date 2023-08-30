@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Collect the universal coins.
+  m_Name: Collect the universal coins
   m_EditorClassIdentifier: 
-  text: Collect the universal coins.
+  text: Collect the universal coins
   quests:
   - {fileID: -3337064567912930192}
   - {fileID: 5358728133755552987}
@@ -34,8 +34,8 @@ MonoBehaviour:
   heightMultiplier: 5
   rect:
     serializedVersion: 2
-    x: 439
-    y: 4.9999847
+    x: 500
+    y: 3.7999992
     width: 400
     height: 500
 --- !u!114 &-4098826546165911087
@@ -180,7 +180,6 @@ MonoBehaviour:
   objectives:
   - {fileID: -500494094103182964}
   - {fileID: -6896424648236796353}
-  - {fileID: 5261849105993937677}
   removedObjectives: []
   currentObjective: 1
   defaultObjective: 1
@@ -197,41 +196,6 @@ MonoBehaviour:
   OnStoryCompleted:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5261849105993937677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59fda59efae046046b926121c0137c30, type: 3}
-  m_Name: Go to the Green waypoint
-  m_EditorClassIdentifier: 
-  text: Go to the Green waypoint
-  quests: []
-  removedQuests: []
-  id: 4157679f-d050-4a8d-aac1-369c810cffb4
-  order: 3
-  isStarted: 0
-  isCompleted: 0
-  nextObjective: 4
-  currentQuest: 1
-  defaultQuest: 1
-  OnStartObjective:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectiveCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  heightMultiplier: 2
-  rect:
-    serializedVersion: 2
-    x: 870
-    y: 7
-    width: 400
-    height: 200
 --- !u!114 &5358728133755552987
 MonoBehaviour:
   m_ObjectHideFlags: 0
